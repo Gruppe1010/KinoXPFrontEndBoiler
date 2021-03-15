@@ -19,33 +19,51 @@ const url = "http://localhost:8080/customers";
 
 pbCreateUser.addEventListener('click', insertUserIntoDb);
 
+
+
+
 function insertUserIntoDb(){
 
   // vi henter værdier fra inputfelterne og sætter vores variabler
   retrieveInput();
 
-  if(password === confirmPassword) {
-    // vi opretter et JSON-obj ud fra inputfelters værdier
-    body = createJSONPerson(name, email, password);
+  isEmailAvailable(email);
+
+  //if(noget) {
+
+    if (password === confirmPassword) {
+      // vi opretter et JSON-obj ud fra inputfelters værdier
+      body = createJSONPerson(name, email, password);
 
 
+      /*
+      * Vi laver nogle specifikationer til vores request
+      * */
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+        },
+        body: body
+      };
 
-    /*
-    * Vi laver nogle specifikationer til vores request
-    * */
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // betyder == vi sender et json i string-format
-      },
-      body: body
-    };
+      /*
+      fetch(url, requestOptions)
+        .then(reponse => reponse.json())
+        .then(data =>  console.log("succes: ", data))
+        .catch(error => console.log("error: ", error));
 
-    fetch(url, requestOptions)
-      .then(reponse => reponse.json())
-      .then(data => console.log("succes: ", data))
-      .catch(error => console.log("error: ", error));
-  }
+       */
+
+      fetch(url, requestOptions)
+        .then(reponse => reponse.json())
+        .then(data =>  checkIfSuccess(data))
+        .catch(error => console.log("error: ", error));
+
+    } else {
+      alert("De to passwords matcher ikke");
+      }
+  //}
 
 }
 
@@ -72,6 +90,20 @@ function createJSONPerson(name, email, password){
    */
   return JSON.stringify(user);
 }
+
+function isEmailAvailable(email){
+
+}
+
+function checkIfSuccess(data){
+  if(data.id !== 0){
+    console.log("succes: ", data)
+  }
+  else{
+    alert("Der findes allerede en bruger med denne email");
+  }
+}
+
 
 
 
