@@ -11,7 +11,7 @@ const requestOptions = {
 
 fetch(url)
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => checkIfSuccess(data))
   .catch(error => console.log("error: ", error));
 
 
@@ -28,6 +28,7 @@ function print(data){
 }
 
 function checkIfSuccess(data){
+  // TODO Denne skal laves - hvis length == 0 så noget
   if(data.id !== 0){
     console.log("succes: ", data)
 

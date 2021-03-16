@@ -24,16 +24,14 @@ function insertUserIntoDb(){
   // vi henter værdier fra inputfelterne og sætter vores variabler
   retrieveInput();
 
-  //isEmailAvailable(email);
 
   if (password === confirmPassword) {
     // vi opretter et JSON-obj ud fra inputfelters værdier
     body = createJSONCustomer(name, email, password);
 
 
-    /*
-    * Vi laver nogle specifikationer til vores request
-    * */
+
+    //Vi laver nogle specifikationer til vores request
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -41,14 +39,6 @@ function insertUserIntoDb(){
       },
       body: body
     };
-
-    /*
-    fetch(url, requestOptions)
-      .then(reponse => reponse.json())
-      .then(data =>  console.log("succes: ", data))
-      .catch(error => console.log("error: ", error));
-
-     */
 
     fetch(url, requestOptions)
       .then(response => response.json())
