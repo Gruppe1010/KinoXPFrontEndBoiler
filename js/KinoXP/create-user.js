@@ -51,7 +51,7 @@ function insertUserIntoDb(){
      */
 
     fetch(url, requestOptions)
-      .then(reponse => reponse.json())
+      .then(response => response.json())
       .then(data =>  checkIfSuccess(data))
       .catch(error => console.log("error: ", error));
 

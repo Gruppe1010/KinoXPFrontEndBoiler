@@ -1,5 +1,5 @@
 let loggedInUserId = localStorage.getItem("loggedInUserId");
-alert(loggedInUserId);
+alert("hej" + loggedInUserId);
 
 
 if (loggedInUserId !== 'null'){
