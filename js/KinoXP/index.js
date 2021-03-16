@@ -1,5 +1,25 @@
 let loggedInUserId = localStorage.getItem("loggedInUserId");
-// alert(loggedInUserId);
+alert(loggedInUserId);
+
+
+if (loggedInUserId !== 'null'){
+  const linkLogIn = document.getElementById("linkLogIn");
+
+
+  linkLogIn.href ="index.html";
+  linkLogIn.innerText="Log ud";
+  linkLogIn.addEventListener('click', logOut);
+
+
+
+}
+
+function logOut(){
+  localStorage.setItem("loggedInUserId", null);
+  window.location.replace="index.html";
+  //linkLogIn.innerText="Log ind";
+}
+
 
 
 
