@@ -76,6 +76,7 @@ function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
     loggedInUserId = data.id;
+    localStorage.setItem("loggedInUserId", data.id)
     window.location.replace("index.html");
   }
   else{
