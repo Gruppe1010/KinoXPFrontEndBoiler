@@ -36,7 +36,6 @@ function logIn() {
     redirect: 'follow',
     mode:'no-cors'
 
-
   };
 
 
@@ -45,7 +44,7 @@ function logIn() {
     .then(reponse => reponse.json())
     .then(data =>  console.log("succes: ", data))
     .catch(error => console.log("error: ", error));
-   */
+ */
 
   fetch(url)
     .then(reponse => reponse.json())
@@ -78,6 +77,7 @@ function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
     loggedInUserId = data.id;
+    localStorage.setItem("loggedInUserId", loggedInUserId)
     window.location.replace("index.html");
   }
   else{
