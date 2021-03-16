@@ -28,17 +28,17 @@ function logIn() {
 
   //body = createJSONLoggedInUser(email, password);
 
-
   const requestOptions = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+      'content-type': 'application/json' // betyder == vi sender et json i string-format
     },
     redirect: 'follow',
     mode:'no-cors'
 
 
   };
+
 
   /*
   fetch(url, requestOptions)
@@ -47,7 +47,7 @@ function logIn() {
     .catch(error => console.log("error: ", error));
    */
 
-  fetch(url, requestOptions)
+  fetch(url)
     .then(reponse => reponse.json())
     .then(data =>  checkIfSuccess(data))
     .catch(error => console.log("error: ", error));
