@@ -23,11 +23,7 @@ function logIn() {
 
   const url = `http://localhost:8080/customers?email=${email}&password=${password}`;
 
-
-
-
-  //body = createJSONLoggedInUser(email, password);
-
+  /*
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -37,19 +33,12 @@ function logIn() {
     mode:'no-cors'
   };
 
-
-  /*
-  fetch(url, requestOptions)
-    .then(reponse => reponse.json())
-    .then(data =>  console.log("succes: ", data))
-    .catch(error => console.log("error: ", error));
    */
 
   fetch(url)
     .then(response => response.json())
     .then(data =>  checkIfSuccess(data))
     .catch(error => console.log("error: ", error));
-
 }
 
 

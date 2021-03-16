@@ -9,9 +9,9 @@ const requestOptions = {
   mode:'no-cors'
 };
 
-fetch(url, requestOptions)
+fetch(url)
   .then(response => response.json())
-  .then(data => print(data))
+  .then(data => console.log(data))
   .catch(error => console.log("error: ", error));
 
 
