@@ -19,17 +19,12 @@ const url = "http://localhost:8080/customers";
 
 pbCreateUser.addEventListener('click', insertUserIntoDb);
 
-
-
-
 function insertUserIntoDb(){
 
   // vi henter værdier fra inputfelterne og sætter vores variabler
   retrieveInput();
 
   //isEmailAvailable(email);
-
-
 
   if (password === confirmPassword) {
     // vi opretter et JSON-obj ud fra inputfelters værdier
@@ -89,15 +84,12 @@ function createJSONCustomer(name, email, password){
    */
   return JSON.stringify(user);
 }
-/*
-function isEmailAvailable(email){
-
-}
- */
 
 function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
+    localStorage.setItem("loggedInUserId", data.id)
+    window.location.replace("index.html");
   }
   else{
     alert("Der findes allerede en bruger med denne email");
