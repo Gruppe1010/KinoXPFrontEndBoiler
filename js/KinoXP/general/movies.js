@@ -1,5 +1,6 @@
 const url =  'http://localhost:8080/movies';
 
+/*
 const requestOptions = {
   method: 'GET',
   headers: {
@@ -9,25 +10,15 @@ const requestOptions = {
   mode:'no-cors'
 };
 
+ */
+
 fetch(url)
   .then(response => response.json())
-  .then(data => checkIfSuccess(data))
+  .then(data => showMovies(data))
   .catch(error => console.log("error: ", error));
 
 
-function print(data){
-  const movies = data.map(dd => dd.data); // nu har vi en collection af addresse-obj i addressMap
-  console.log(movies);
-
-  let movieArray = [];
-
-  // nu piller vi vejnavnene ud i en NY collection
-  movieArray = movies.map(movie => movie.title);
-
-  console.log(movieArray);
-}
-
-function checkIfSuccess(data){
+function showMovies(data){
   // TODO Denne skal laves - hvis length == 0 så noget
   if(data.id !== 0){
     console.log("succes: ", data)

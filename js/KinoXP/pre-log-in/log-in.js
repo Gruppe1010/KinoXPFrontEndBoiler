@@ -40,7 +40,7 @@ function checkIfSuccess(user){
     // vi laver vores JSON-user-obj om til en String via JSON.stringify
     // vi gemmer hele vores String-user-obj i localStorage
     localStorage.setItem('loggedInUser', JSON.stringify(user));
-    window.location.replace('../general/index.html');
+    window.location.replace('../../general/index.html');
   }
   else{
     alert("Log ind fejlede, prøv igen");

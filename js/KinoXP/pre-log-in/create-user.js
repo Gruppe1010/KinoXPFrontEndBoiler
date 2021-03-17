@@ -82,7 +82,7 @@ function checkIfSuccess(customer){
     // vi laver vores JSON-customer-obj om til en String via JSON.stringify
     // vi gemmer hele vores String-user-obj i localStorage
     localStorage.setItem('loggedInUser', JSON.stringify(customer));
-    window.location.replace('../general/index.html');
+    window.location.replace('../../general/index.html');
   }
   else{
     alert("Der findes allerede en bruger med denne email");

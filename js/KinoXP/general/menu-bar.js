@@ -14,7 +14,7 @@ if (loggedInUserId !== 'null'){
 
   // Vi ændrer Log ind link til Log ud
   const linkLogIn = document.getElementById('linkLogIn');
-  linkLogIn.href ='../general/index.html';
+  linkLogIn.href ='../../general/index.html';
   linkLogIn.innerText='Log ud';
   linkLogIn.addEventListener('click', logOut);
 
@@ -34,7 +34,7 @@ if (loggedInUserId !== 'null'){
     let aBookinNode = document.createTextNode("Mine Bookinger");
     // tilføjer tekst til a-tag
     aBooking.appendChild(aBookinNode);
-    aBooking.href='../customer/bookings.html';
+    aBooking.href='../../customer/bookings.html';
     liBooking.appendChild(aBooking);
     menuBar.appendChild(liBooking);
 
@@ -47,11 +47,11 @@ if (loggedInUserId !== 'null'){
   else if(loggedInUserType == 2){
 
     // ændrer "Om os"-fane til at være "Tilføj film"-fane
-    linkAbout.href ='../staff/create-movie.html';
+    linkAbout.href ='../../staff/create-movie.html';
     linkAbout.innerText="Tilføj film";
 
     // ændrer "Kontakt"-fane til at være "POS"-fane
-    linkContact.href ='../staff/pos.html';
+    linkContact.href ='../../staff/pos.html';
     linkContact.innerText="POS";
 
     // vi ændrer på tekst som står til højre i menubar
@@ -61,11 +61,11 @@ if (loggedInUserId !== 'null'){
   else{
 
     // ændrer "Om os"-fane til at være "Vagtplan"-fane
-    linkAbout.href ='../admin/roster.html';
+    linkAbout.href ='../../admin/roster.html';
     linkAbout.innerText="Vagtplan";
 
     // ændrer "Kontakt"-fane til at være "Opret ny medarbejder"-fane
-    linkContact.href ='../admin/create-new-staff.html';
+    linkContact.href ='../../admin/create-new-staff.html';
     linkContact.innerText="Opret ny medarbejder";
 
 
@@ -73,7 +73,7 @@ if (loggedInUserId !== 'null'){
     linkProfileText = "Admin - " + loggedInUserName;
   }
 
-  linkCreateUser.href ='../general/profile.html';
+  linkCreateUser.href ='../../general/profile.html';
   linkCreateUser.innerText=linkProfileText;
 }
 
@@ -81,7 +81,7 @@ if (loggedInUserId !== 'null'){
 
 function logOut(){
   localStorage.setItem('loggedInUser', null);
-  window.location.replace='../general/index.html';
+  window.location.replace='../../general/index.html';
 }
 
 
