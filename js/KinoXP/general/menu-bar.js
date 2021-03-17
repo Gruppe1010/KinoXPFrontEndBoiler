@@ -29,12 +29,15 @@ if (loggedInUserId !== 'null'){
 
     // vi opretter "Mine bookinger"-fane
     let liBooking = document.createElement('li');
+    // Man kunne også sige: liBooking.id = 'liBooking';
+    liBooking.setAttribute('id', 'liBooking');
+
     let aBooking = document.createElement('a');
     // tekst som står inde i a-tagget
     let aBookinNode = document.createTextNode("Mine Bookinger");
     // tilføjer tekst til a-tag
     aBooking.appendChild(aBookinNode);
-    aBooking.href='../../customer/bookings.html';
+    aBooking.href='../customer/bookings.html';
     liBooking.appendChild(aBooking);
     menuBar.appendChild(liBooking);
 
@@ -81,7 +84,7 @@ if (loggedInUserId !== 'null'){
 
 function logOut(){
   localStorage.setItem('loggedInUser', null);
-  window.location.replace='../../general/index.html';
+  window.location.replace='../general/index.html';
 }
 
 
