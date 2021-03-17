@@ -76,11 +76,12 @@ function createJSONCustomer(name, email, password){
   return JSON.stringify(user);
 }
 
-function checkIfSuccess(data){
-  if(data.id !== 0){
-    console.log("succes: ", data)
-    localStorage.setItem('loggedInUserId', data.id)
-    localStorage.setItem('loggedInUserType', data.type)
+function checkIfSuccess(customer){
+  if(customer.id !== 0){
+    console.log("succes: ", customer)
+    // vi laver vores JSON-customer-obj om til en String via JSON.stringify
+    // vi gemmer hele vores String-user-obj i localStorage
+    localStorage.setItem('loggedInUser', JSON.stringify(customer));
     window.location.replace('index.html');
   }
   else{

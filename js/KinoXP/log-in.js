@@ -35,12 +35,13 @@ function logIn() {
 }
 
 
-function checkIfSuccess(data){
-  if(data.id !== 0){
-    console.log("succes: ", data)
-    localStorage.setItem('loggedInUserId', data.id)
-    localStorage.setItem('loggedInUserType', data.type)
-    window.location.replace('index.html');
+function checkIfSuccess(user){
+  if(user.id !== 0){
+    console.log("succes: ", user)
+    // vi laver vores JSON-user-obj om til en String via JSON.stringify
+    // vi gemmer hele vores String-user-obj i localStorage
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    window.location.replace('general/index.html');
   }
   else{
     alert("Log ind fejlede, prøv igen");
