@@ -1,13 +1,13 @@
 
 
 // vi gemmer vores inputfelter i const-vars
-const inputName = document.getElementById("name");
-const inputEmail = document.getElementById("email");
-const inputPassword = document.getElementById("password");
-const inputConfirmPassword = document.getElementById("comfirmPassword");
+const inputName = document.getElementById('name');
+const inputEmail = document.getElementById('email');
+const inputPassword = document.getElementById('password');
+const inputConfirmPassword = document.getElementById('comfirmPassword');
 
 // vi gemmer vores pb i en var
-const pbCreateUser = document.getElementById("pbCreateUser");
+const pbCreateUser = document.getElementById('pbCreateUser');
 
 // vi opretter variabler, hvori vi gemmer det indtastede input fra input-felterne
 let name;
@@ -15,7 +15,7 @@ let email;
 let password;
 let confirmPassword;
 
-const url = "http://localhost:8080/customers";
+const url = 'http://localhost:8080/customers';
 
 pbCreateUser.addEventListener('click', insertUserIntoDb);
 
@@ -64,9 +64,9 @@ function retrieveInput(){
 function createJSONCustomer(name, email, password){
   // vi laver et object (JSON-obj er standard obj i js)
   let user = {
-    "name": name,
-    "email": email,
-    "password": password
+    'name': name,
+    'email': email,
+    'password': password
   };
 
   /* Vi laver JSON om til en String
@@ -78,8 +78,8 @@ function createJSONCustomer(name, email, password){
 function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
-    localStorage.setItem("loggedInUserId", data.id)
-    window.location.replace("index.html");
+    localStorage.setItem('loggedInUserId', data.id)
+    window.location.replace('index.html');
   }
   else{
     alert("Der findes allerede en bruger med denne email");

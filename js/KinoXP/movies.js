@@ -1,4 +1,4 @@
-const url =  "http://localhost:8080/movies";
+const url =  'http://localhost:8080/movies';
 
 const requestOptions = {
   method: 'GET',
@@ -17,7 +17,7 @@ fetch(url)
 
 function print(data){
   const movies = data.map(dd => dd.data); // nu har vi en collection af addresse-obj i addressMap
-
+  console.log(movies);
 
   let movieArray = [];
 

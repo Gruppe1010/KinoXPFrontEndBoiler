@@ -1,10 +1,10 @@
 
 // vi gemmer vores inputfelter i const-vars
-const inputEmail = document.getElementById("email");
-const inputPassword = document.getElementById("password");
+const inputEmail = document.getElementById('email');
+const inputPassword = document.getElementById('password');
 
 // vi gemmer vores pb i en var
-const pbLogIn = document.getElementById("pbLogIn");
+const pbLogIn = document.getElementById('pbLogIn');
 
 pbLogIn.addEventListener('click', logIn);
 
@@ -38,8 +38,8 @@ function logIn() {
 function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
-    localStorage.setItem("loggedInUserId", data.id)
-    window.location.replace("index.html");
+    localStorage.setItem('loggedInUserId', data.id)
+    window.location.replace('index.html');
   }
   else{
     alert("Log ind fejlede, prøv igen");
