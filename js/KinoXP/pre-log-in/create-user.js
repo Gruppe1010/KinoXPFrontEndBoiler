@@ -82,7 +82,13 @@ function checkIfSuccess(customer){
     // vi laver vores JSON-customer-obj om til en String via JSON.stringify
     // vi gemmer hele vores String-user-obj i localStorage
     localStorage.setItem('loggedInUser', JSON.stringify(customer));
-    window.location.replace('../../general/index.html');
+    /* vi skal tænke på hvor den html vi er inde på står og hvor den skal hen
+    fx står vi lige nu på pre-log-in/create-user.html
+      derfor skal vi én mappe tilbage == ../
+      ind i general-mappen == /general
+      og linke til index-filen == index.html
+     */
+    window.location.replace('../general/index.html');
   }
   else{
     alert("Der findes allerede en bruger med denne email");

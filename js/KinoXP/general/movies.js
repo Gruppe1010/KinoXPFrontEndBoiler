@@ -1,4 +1,5 @@
 const url =  'http://localhost:8080/movies';
+const divMovies = document.getElementById('divMovies');
 
 /*
 const requestOptions = {
@@ -14,19 +15,28 @@ const requestOptions = {
 
 fetch(url)
   .then(response => response.json())
-  .then(data => showMovies(data))
+  .then(movies => showMovies(movies))
   .catch(error => console.log("error: ", error));
 
 
-function showMovies(data){
-  // TODO Denne skal laves - hvis length == 0 så noget
-  if(data.id !== 0){
-    console.log("succes: ", data)
+function showMovies(movies){
+  // Hvis der ER film
+  if(movies.length !== 0){
+
+    console.log("succes: ", movies)
+
 
 
   }
   else{
-    alert("Log ind fejlede, prøv igen");
+
+    console.log("der er ikke nogen movies");
+
+    let h1NoMovies = document.createElement('h1');
+    let h1NoMoviesNode = document.createTextNode("Der er bare ikke nogen film mand");
+    h1NoMovies.appendChild(h1NoMoviesNode);
+    divMovies.appendChild(h1NoMovies);
+
   }
 }
 
