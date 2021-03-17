@@ -75,7 +75,10 @@ function createMovie(){
 }
 
 
-
+/* metode fundet på:
+*
+* https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript
+* */
 function getBase64(file) {
   return new Promise(function(resolve, reject) {
     var reader = new FileReader();
