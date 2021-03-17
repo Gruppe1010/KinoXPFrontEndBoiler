@@ -14,7 +14,7 @@ function createMovie(){
   base64 = getBase64(moviePoster);
 
 
-
+// hej
 
 }
 
