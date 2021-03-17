@@ -1,4 +1,6 @@
-
+/*
+https://www.geeksforgeeks.org/how-to-create-a-link-in-javascript/
+*/
 
 // vi gemmer vores inputfelter i const-vars
 const inputName = document.getElementById('name');
