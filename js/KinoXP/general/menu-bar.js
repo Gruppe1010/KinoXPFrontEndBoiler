@@ -47,11 +47,11 @@ if (loggedInUserId !== 'null'){
   else if(loggedInUserType == 2){
 
     // ændrer "Om os"-fane til at være "Tilføj film"-fane
-    linkAbout.href ='../../staff/create-movie.html';
+    linkAbout.href ='../staff/create-movie.html';
     linkAbout.innerText="Tilføj film";
 
     // ændrer "Kontakt"-fane til at være "POS"-fane
-    linkContact.href ='../../staff/pos.html';
+    linkContact.href ='../staff/pos.html';
     linkContact.innerText="POS";
 
     // vi ændrer på tekst som står til højre i menubar
@@ -61,11 +61,11 @@ if (loggedInUserId !== 'null'){
   else{
 
     // ændrer "Om os"-fane til at være "Vagtplan"-fane
-    linkAbout.href ='../../admin/roster.html';
+    linkAbout.href ='../admin/roster.html';
     linkAbout.innerText="Vagtplan";
 
     // ændrer "Kontakt"-fane til at være "Opret ny medarbejder"-fane
-    linkContact.href ='../../admin/create-new-staff.html';
+    linkContact.href ='../admin/create-new-staff.html';
     linkContact.innerText="Opret ny medarbejder";
 
 
@@ -73,7 +73,7 @@ if (loggedInUserId !== 'null'){
     linkProfileText = "Admin - " + loggedInUserName;
   }
 
-  linkCreateUser.href ='../../general/profile.html';
+  linkCreateUser.href ='../general/profile.html';
   linkCreateUser.innerText=linkProfileText;
 }
 
