@@ -39,6 +39,7 @@ function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
     localStorage.setItem('loggedInUserId', data.id)
+    localStorage.setItem('loggedInUserType', data.type)
     window.location.replace('index.html');
   }
   else{

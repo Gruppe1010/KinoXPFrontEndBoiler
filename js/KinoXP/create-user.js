@@ -64,6 +64,7 @@ function retrieveInput(){
 function createJSONCustomer(name, email, password){
   // vi laver et object (JSON-obj er standard obj i js)
   let user = {
+    'type': 1,
     'name': name,
     'email': email,
     'password': password
@@ -79,6 +80,7 @@ function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: ", data)
     localStorage.setItem('loggedInUserId', data.id)
+    localStorage.setItem('loggedInUserType', data.type)
     window.location.replace('index.html');
   }
   else{
