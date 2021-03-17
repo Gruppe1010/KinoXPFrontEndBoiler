@@ -4,31 +4,35 @@ const pbSubmitMovie = document.getElementById('pbSubmitMovie');
 
 pbSubmitMovie.addEventListener('click', createMovie);
 
-
+let base64;
 
 function createMovie(){
 
-  const moviePoster = document.getElementById('moviePoster');
+  const moviePoster = document.getElementById('moviePoster').files[0];
   const title = document.getElementById('title');
 
-
-  const movieDataUrl = moviePoster.toDataURL();
-
-  base64
-
-
-
-
+  base64 = getBase64(moviePoster);
 
 
 
 
 }
 
+console.log(base64);
 
+function getBase64(file) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {return reader.result;};
+  reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
+}
 
+/*
 
-
+var file = document.querySelector('#files > input[type="file"]').files[0];
+getBase64(file); // prints the base64 string
 
 
 
@@ -59,3 +63,5 @@ function showImage(evt) {
 }
 
 
+
+ */
