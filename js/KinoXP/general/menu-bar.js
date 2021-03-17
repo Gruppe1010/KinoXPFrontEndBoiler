@@ -14,7 +14,7 @@ if (loggedInUserId !== 'null'){
 
   // Vi ændrer Log ind link til Log ud
   const linkLogIn = document.getElementById('linkLogIn');
-  linkLogIn.href ='../../general/index.html';
+  linkLogIn.href ='../general/index.html';
   linkLogIn.innerText='Log ud';
   linkLogIn.addEventListener('click', logOut);
 
