@@ -1,5 +1,6 @@
 const url =  'http://localhost:8080/movies';
 const divMovies = document.getElementById('divMovies');
+let currentRow;
 
 /*
 const requestOptions = {
@@ -22,8 +23,12 @@ fetch(url)
 function showMovies(movies){
   // Hvis der ER film
   if(movies.length !== 0){
-
     console.log("succes: ", movies)
+
+    currentRow = createRow();
+
+
+
 
 
 
@@ -39,6 +44,52 @@ function showMovies(movies){
 
   }
 }
+
+function createRow(){
+
+  let newRow = document.createElement('div');
+  newRow.classList.add('row');
+
+  return newRow;
+}
+
+function createMoviePreview(movie){
+  /* Elementet vi laver:
+  * <a href="../../general/view-movie.html"> <!-- function createMoviePreview(movie) -->
+      <div class="col-sm-3">
+        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+        <br>
+        <p>Titel</p>
+        <p>Premieredato</p>
+      </div>
+    </a>
+  *
+  * */
+
+  // vi laver nu a-tagget - giver det en href og et id
+  let aMovie = document.createElement('a');
+  aMovie.href = '../../general/view-movie.html';
+  aMovie.setAttribute('id', movie.id);
+
+  // vi laver nu den div som skal være i a-tagget
+  let divMovie = document.createElement('div');
+  divMovie.classList.add('col-sm-3');
+
+  // vi laver nu img som skal være i divMovie
+  let imgMovie = document.createElement('img');
+  imgMovie.src = 'Todo';
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
