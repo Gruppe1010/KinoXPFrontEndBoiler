@@ -111,7 +111,7 @@ else
       console.log("succes: " + data);
       alert("Filmen " + data.title + " er nu oprettet succesfuldt");
       console.log("agelimit " + data.ageLimit);
-      window.location.replace('../general/add-shows-to-movie.html')
+      window.location.replace('../staff/add-shows-to-movie.html')
 
     } else {
       alert("Der skete en fejl");

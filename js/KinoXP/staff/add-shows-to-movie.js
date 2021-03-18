@@ -49,7 +49,10 @@ function createCalendar(){
 *
 * */
 
+  const divCalendar = document.getElementById('divCalendar');
+
   const table = document.createElement('TABLE');
+  table.border = '1';
 
   const tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
@@ -57,22 +60,18 @@ function createCalendar(){
   for(let i = 1; i <=5; i++){
     const week = document.createElement('TR');
     week.setAttribute('id', 'week' + i);
-    week.innerText = "Hej";
 
     tableBody.appendChild(week);
 
     for(let j = 1; j <= 7; j++){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
+      day.width = '75';
       day.innerText = "Hej";
 
       week.appendChild(day);
     }
-
-
   }
-
-  table.innerText = "Hej";
 
   divCalendar.appendChild(table);
 
