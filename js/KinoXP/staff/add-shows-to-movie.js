@@ -16,10 +16,11 @@ let numberOfDaysInMonth;
 setDateInfo(today);
 
 createCalendar();
+addDatesToCalendar();
 
 function setDateInfo(today) {
   day = today.getDate();
-  month = today.getMonth() + 1;
+  month = today.getMonth() + 2; //+ 1;
   if (month < 10) {
     month = "0" + month;
   }
@@ -30,22 +31,6 @@ function setDateInfo(today) {
 }
 
 function createCalendar(){
-/*
-* <table id="dataTable" width="50%" border="1">
-  <td>
-    <input type="button" name="button1" value="Delete">
-  </td>
-  <td>1</td>
-  <td>
-    <input type="text" value="hej" name="nameTxt">
-  </td>
-</table>
-*
-* table --> tr --> td
-
-*
-* */
-
   const table = document.createElement('TABLE');
   table.border = '1';
 
@@ -92,7 +77,7 @@ function createCalendar(){
   headlineRow.appendChild(sunday);
   tableBody.appendChild(headlineRow)
 
-  for(let i = 1; i <=5; i++){
+  for(let i = 1; i <=6; i++){
     const week = document.createElement('TR');
     week.setAttribute('id', 'week' + i);
 
@@ -108,6 +93,44 @@ function createCalendar(){
   }
   divCalendar.appendChild(table);
 }
+
+function addDatesToCalendar(){
+
+  let innerTextDate = 0;
+
+  for(let i = 0; i <= 7 - firstDayOfMonth; i++) {
+
+    let dayNumber = firstDayOfMonth + i;
+
+    const td = document.getElementById('week1day' + dayNumber);
+
+    innerTextDate++;
+
+    td.innerText = innerTextDate;
+  }
+
+  // for-loop for ugenr
+  for(let i = 2; i <=6; i++){
+
+    // for-loop hvor j er dayNumber
+    for(let j = 0; j < 7; j++) {
+
+      innerTextDate++;
+
+      if(innerTextDate <= numberOfDaysInMonth){
+
+      let dayNumber = 1 + j;
+
+      const td = document.getElementById('week' + i + 'day' + dayNumber);
+
+      td.innerText = innerTextDate;
+      }
+    }
+  }
+
+
+}
+
 
 
 
