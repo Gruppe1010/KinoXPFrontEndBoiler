@@ -1,5 +1,6 @@
 const url =  'http://localhost:8080/movies';
 const divMovies = document.getElementById('divMovies');
+const divRow = document.getElementById('divRow');
 let currentRow;
 
 
@@ -17,16 +18,20 @@ const requestOptions = {
 
 fetch(url)
   .then(response => response.json())
-  .then(movies => showMovies(movies))
+  .then(movies => movies.forEach(showMovies))
   .catch(error => console.log("error: ", error));
 
 
-function showMovies(movies){
+function showMovies(movie){
   // Hvis der ER film
-  if(movies.length !== 0){
-    console.log("succes: ", movies)
+
+  //currentRow = createRow();
+  createMoviePreview(movie);
+ /* if(movie.length !== 0){
+    console.log("succes: ", movie)
 
     currentRow = createRow();
+    createMoviePreview(movie);
 
   }
   else{
@@ -39,6 +44,8 @@ function showMovies(movies){
     divMovies.appendChild(h1NoMovies);
 
   }
+
+  */
 }
 
 function createRow(){
@@ -51,6 +58,7 @@ function createRow(){
 
 function createMoviePreview(movie){
   /* Elementet vi laver:
+
   * <a href="../../general/view-movie.html"> <!-- function createMoviePreview(movie) -->
       <div class="col-sm-3">
         <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
@@ -61,14 +69,8 @@ function createMoviePreview(movie){
     </a>
   *
   *
-  * var image = new Image();
-    image.src = 'data:image/png;base64,iVBORw0K...';
-    document.body.appendChild(image);
   *
   * */
-
-
-
 
   // vi laver nu a-tagget - giver det en href og et id
   let aMovie = document.createElement('a');
@@ -79,20 +81,41 @@ function createMoviePreview(movie){
   let divMovie = document.createElement('div');
   divMovie.classList.add('col-sm-3');
 
+
   // vi laver nu img som skal være i divMovie
   let imgMovie = document.createElement('img');
-  imgMovie.src = 'Todo';
+  imgMovie.src = movie.base64;
 
+  let pTitle = document.createElement('p');
+  pTitle.innerText=movie.title;
+  pTitle.style.fontWeight='bolder';
+  pTitle.style.fontSize='25px';
 
+  let pPremiere = document.createElement('p');
+  let premiere = movie.premiere;
+  pPremiere.style.fontSize='15px'
+  pPremiere.style.fontStyle='italic';
 
+  if (premiere == null){
+    premiere = "Premieredato ikke fastlagt";
+  }
+  pPremiere.innerText = premiere;
+
+  imgMovie.classList.add('img-responsive');
+  imgMovie.style.width='80%';
+
+  divRow.appendChild(aMovie);
+  aMovie.appendChild(divMovie);
+  divMovie.appendChild(imgMovie);
+  divMovie.appendChild(document.createElement('br'));
+  divMovie.appendChild(pTitle);
+  divMovie.appendChild(pPremiere);
 
 }
 
 
-document.getElementById('img')
-  .setAttribute(
-    'src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='
-  );
+
+
 
 
 
