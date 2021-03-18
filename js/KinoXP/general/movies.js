@@ -74,7 +74,7 @@ function createMoviePreview(movie){
 
   // vi laver nu a-tagget - giver det en href og et id
   let aMovie = document.createElement('a');
-  aMovie.href = '../../general/view-movie.html';
+  aMovie.href = '../general/view-movie.html';
   aMovie.setAttribute('id', movie.id);
   aMovie.addEventListener('click', addMovieToLocalStorage(movie));
 
@@ -115,7 +115,8 @@ function createMoviePreview(movie){
 }
 
 function addMovieToLocalStorage(movie){
-  localStorage.setItem('movie', movie);
+  localStorage.setItem('movie', JSON.stringify(movie));
+
 }
 
 
