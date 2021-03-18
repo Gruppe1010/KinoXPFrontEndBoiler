@@ -1,3 +1,4 @@
+// TODO lav et event på enter hvor den submitter formen
 
 // sikring for at det KUN er staff der kan være på denne side
 const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -17,8 +18,6 @@ else
   let base64;
 
   /*
-
-
       <label htmlFor="length">Længde i minutter</label>
 
         <label htmlFor="premiere">Premieredato</label>
@@ -26,7 +25,6 @@ else
 
             <!-- radio button-->
             <label htmlFor="ageLimit1">Tilladt for alle</label>
-
    */
 
 
