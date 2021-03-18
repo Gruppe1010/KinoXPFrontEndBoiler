@@ -76,6 +76,7 @@ function createMoviePreview(movie){
   let aMovie = document.createElement('a');
   aMovie.href = '../../general/view-movie.html';
   aMovie.setAttribute('id', movie.id);
+  aMovie.addEventListener('click', addMovieToLocalStorage(movie));
 
   // vi laver nu den div som skal være i a-tagget
   let divMovie = document.createElement('div');
@@ -111,6 +112,10 @@ function createMoviePreview(movie){
   divMovie.appendChild(pTitle);
   divMovie.appendChild(pPremiere);
 
+}
+
+function addMovieToLocalStorage(movie){
+  localStorage.setItem('movie', movie);
 }
 
 
