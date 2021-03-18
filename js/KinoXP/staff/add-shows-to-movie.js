@@ -2,11 +2,9 @@ const findNumberOfDaysInMonth = function(month,year) {
   return new Date(year, month, 0).getDate();
 };
 
-
 const divCalendar = document.getElementById('divCalendar');
 
 const today = new Date();
-
 
 let day;
 let month;
@@ -49,7 +47,7 @@ function createCalendar(){
 *
 * */
 
-  const divCalendar = document.getElementById('divCalendar');
+
 
   const table = document.createElement('TABLE');
   table.border = '1';
@@ -67,15 +65,12 @@ function createCalendar(){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
       day.width = '75';
-      day.innerText = "Hej";
+      day.innerText = "Day" + j;
 
       week.appendChild(day);
     }
   }
-
   divCalendar.appendChild(table);
-
-
 }
 
 
