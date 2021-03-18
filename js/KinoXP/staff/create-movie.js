@@ -8,11 +8,8 @@ if(user.id !== 2){
   window.location.replace='../general/index.html';
 }
 
-
-
 else
 {
-
   const pbSubmitMovie = document.getElementById('pbSubmitMovie');
 
   pbSubmitMovie.addEventListener('click', createMovie);
@@ -116,7 +113,7 @@ else
       console.log("succes: " + data);
       alert("Filmen " + data.title + " er nu oprettet succesfuldt");
       console.log("agelimit " + data.ageLimit);
-      //window.location.replace('../general/add-shows-to-movie.html')
+      window.location.replace('../general/add-shows-to-movie.html')
 
     } else {
       alert("Der skete en fejl");
