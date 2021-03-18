@@ -30,7 +30,6 @@ function setDateInfo(today) {
 }
 
 function createCalendar(){
-
 /*
 * <table id="dataTable" width="50%" border="1">
   <td>
@@ -47,13 +46,51 @@ function createCalendar(){
 *
 * */
 
-
-
   const table = document.createElement('TABLE');
   table.border = '1';
 
   const tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
+
+  const headlineRow = document.createElement('TR');
+  headlineRow.setAttribute('id', 'headlineRow');
+
+  const monday = document.createElement('TH');
+  monday.setAttribute('id', 'monday');
+  monday.innerText = "Mandag";
+
+  const tuesday = document.createElement('TH');
+  tuesday.setAttribute('id', 'tuesday');
+  tuesday.innerText = "Tirsdag";
+
+  const wednesday = document.createElement('TH');
+  wednesday.setAttribute('id', 'wednesday');
+  wednesday.innerText = "Onsdag";
+
+  const thursday = document.createElement('TH');
+  thursday.setAttribute('id', 'thursday');
+  thursday.innerText = "Torsdag";
+
+  const friday = document.createElement('TH');
+  friday.setAttribute('id', 'friday');
+  friday.innerText = "Fredag";
+
+  const saturday = document.createElement('TH');
+  saturday.setAttribute('id', 'saturday');
+  saturday.innerText = "Lørdag";
+
+  const sunday = document.createElement('TH');
+  sunday.setAttribute('id', 'sunday');
+  sunday.innerText = "Søndag";
+
+  headlineRow.appendChild(monday);
+  headlineRow.appendChild(tuesday);
+  headlineRow.appendChild(wednesday);
+  headlineRow.appendChild(thursday);
+  headlineRow.appendChild(friday);
+  headlineRow.appendChild(saturday);
+  headlineRow.appendChild(sunday);
+  tableBody.appendChild(headlineRow)
 
   for(let i = 1; i <=5; i++){
     const week = document.createElement('TR');
@@ -65,7 +102,6 @@ function createCalendar(){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
       day.width = '75';
-      day.innerText = "Day" + j;
 
       week.appendChild(day);
     }
