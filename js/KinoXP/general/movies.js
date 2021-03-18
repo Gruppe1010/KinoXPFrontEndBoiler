@@ -2,6 +2,7 @@ const url =  'http://localhost:8080/movies';
 const divMovies = document.getElementById('divMovies');
 let currentRow;
 
+
 /*
 const requestOptions = {
   method: 'GET',
@@ -26,11 +27,6 @@ function showMovies(movies){
     console.log("succes: ", movies)
 
     currentRow = createRow();
-
-
-
-
-
 
   }
   else{
@@ -64,7 +60,15 @@ function createMoviePreview(movie){
       </div>
     </a>
   *
+  *
+  * var image = new Image();
+    image.src = 'data:image/png;base64,iVBORw0K...';
+    document.body.appendChild(image);
+  *
   * */
+
+
+
 
   // vi laver nu a-tagget - giver det en href og et id
   let aMovie = document.createElement('a');
@@ -80,7 +84,16 @@ function createMoviePreview(movie){
   imgMovie.src = 'Todo';
 
 
+
+
 }
+
+
+document.getElementById('img')
+  .setAttribute(
+    'src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=='
+  );
+
 
 
 

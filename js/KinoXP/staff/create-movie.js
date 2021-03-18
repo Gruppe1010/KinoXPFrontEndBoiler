@@ -25,25 +25,16 @@ function createMovie(){
   const title = document.getElementById('title').value;
 
   const length = document.getElementById('length').value;
-  const premiere = document.getElementById('premiere').value;
   const yearOfRelease = document.getElementById('yearOfRelease').value;
   const ageLimit = document.querySelectorAll("input[name=ageLimit]:checked")[0].value;
 
-  console.log("premiere: " + premiere);
-
-
-
-
-
+  console.log(ageLimit);
   /*
   if (document.getElementById('r1').checked) {
     rate_value = document.getElementById('r1').value;
   }
 
    */
-
-  console.log("ageLimit: " + ageLimit);
-
 
 
   const moviePromise = getBase64(moviePoster);
@@ -52,7 +43,7 @@ function createMovie(){
     base64 = result;
 
     // TODO den skal tage alle movie-param
-    const body = createJSONMovie(base64, title, length, premiere, yearOfRelease, ageLimit);
+    const body = createJSONMovie(base64, title, length, yearOfRelease, ageLimit);
 
     //Vi laver nogle specifikationer til vores request
     const requestOptions = {
@@ -89,19 +80,16 @@ function getBase64(file) {
 }
 
 // TODO rediger så den tager alle params
-function createJSONMovie(base64, title, length, premiere, yearOfRelease, ageLimit){
+function createJSONMovie(base64, title, length, yearOfRelease, ageLimit){
 
   const movie = {
     'base64': base64,
     'title': title,
     'length': length,
-    'premiereDate': premiere,
     'yearOfRelease': yearOfRelease,
     'ageLimit': ageLimit,
     'active': true
   }
-
-  console.log(ageLimit);
 
   return JSON.stringify(movie);
 }
@@ -111,6 +99,9 @@ function checkIfSuccess(data){
   if(data.id !== 0){
     console.log("succes: " + data);
     alert("Filmen " + data.title + " er nu oprettet succesfuldt");
+    console.log("agelimit " + data.ageLimit);
+    //window.location.replace('../general/add-shows-to-movie.html')
+
   }
   else{
     alert("Der skete en fejl");
