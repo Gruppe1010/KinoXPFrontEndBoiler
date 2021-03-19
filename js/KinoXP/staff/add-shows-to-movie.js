@@ -77,6 +77,32 @@ function createCalendar(){
   headlineRow.appendChild(sunday);
   tableBody.appendChild(headlineRow)
 
+  /*
+  <table border="1">
+    <tbody>
+      <tr>
+        <td colspan="2">hrj</td>
+      </tr>
+    <tr>
+
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+
+    </tr>
+    </tbody>
+  </table>
+  */
+
   for(let i = 1; i <=6; i++){
     const week = document.createElement('TR');
     week.setAttribute('id', 'week' + i);
@@ -86,8 +112,22 @@ function createCalendar(){
     for(let j = 1; j <= 7; j++){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
+      day.setAttribute('colspan', '2');
       day.width = '75';
 
+      const dayRow = document.createElement('TR');
+
+      for(let k = 1; k <= 3; k++){
+        const dayRow = document.createElement('TR');
+        dayRow.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k);
+        day.appendChild(dayRow);
+
+        for(let l = 1; l <= 2; l++){
+          const dayRowCol = document.createElement('TD');
+          dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
+          dayRow.appendChild(dayRowCol)
+        }
+      }
       week.appendChild(day);
     }
   }
@@ -128,25 +168,3 @@ function addDatesToCalendar(){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
