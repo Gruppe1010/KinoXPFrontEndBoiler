@@ -112,7 +112,6 @@ function createCalendar(){
     for(let j = 1; j <= 7; j++){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
-      day.width = '75';
 
       const dayRowDate = document.createElement('TR');
       // week1day6date
@@ -131,7 +130,6 @@ function createCalendar(){
         for(let l = 1; l <= 2; l++){
           const dayRowCol = document.createElement('TD');
           dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
-          dayRowCol.innerText = "Hej";
 
           dayRow.appendChild(dayRowCol)
         }
@@ -140,6 +138,26 @@ function createCalendar(){
     }
   }
   divCalendar.appendChild(table);
+}
+
+function addBioNumber(weekNumber, dayNumber){
+  const tdBio1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow1dayrowcol' + 1);
+  const tdBio2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow1dayrowcol' + 2);
+
+  tdBio1.innerText = " Bio 1 ";
+  tdBio2.innerText = " Bio 2 ";
+}
+
+function addBioTimeSlots(weekNumber, dayNumber){
+  const tdBio1TimeSlot1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 1);
+  const tdBio1TimeSlot2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 2);
+  const tdBio2TimeSlot1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 1);
+  const tdBio2TimeSlot2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 2);
+
+  tdBio1TimeSlot1.innerText = "16:00-19:00";
+  tdBio1TimeSlot2.innerText = "20:00-23:00";
+  tdBio2TimeSlot1.innerText = "16:00-19:00";
+  tdBio2TimeSlot2.innerText = "20:00-23:00";
 }
 
 function addDatesToCalendar(){
@@ -153,10 +171,12 @@ function addDatesToCalendar(){
     let dayNumber = firstDayOfMonth + i;
 
     const td = document.getElementById('week1day' + dayNumber + 'date');
-
     innerTextDate++;
 
     td.innerText = innerTextDate;
+
+    addBioNumber(1, dayNumber);
+    addBioTimeSlots(1, dayNumber);
   }
   // resten af ugerne i kalenderen
   // for-loop for ugenr
@@ -173,6 +193,9 @@ function addDatesToCalendar(){
       const td = document.getElementById('week' + i + 'day' + dayNumber + 'date');
 
       td.innerText = innerTextDate;
+
+      addBioNumber(i, dayNumber);
+      addBioTimeSlots(i, dayNumber);
       }
     }
   }
