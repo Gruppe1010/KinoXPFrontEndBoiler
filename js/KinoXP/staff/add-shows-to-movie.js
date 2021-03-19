@@ -114,33 +114,26 @@ function createCalendar(){
       day.setAttribute('id', 'week' + i + 'day' + j);
       day.width = '75';
 
-      const dayTable = document.createElement('table');
-      dayTable.setAttribute('id', 'week' + i + 'day' + j + 'table');
-
-      day.appendChild(dayTable);
-
-      const dayTableBody = document.createElement('tbody');
-      dayTableBody.setAttribute('id', 'week' + i + 'day' + j + 'tablebody');
-
-      dayTable.appendChild(dayTableBody);
-
       const dayRowDate = document.createElement('TR');
       // week1day6date
       dayRowDate.setAttribute('id', 'week' + i + 'day' + j + 'date');
       dayRowDate.setAttribute('colspan', '2');
       dayRowDate.width = '100%'
-      dayTableBody.appendChild(dayRowDate);
+
+      day.appendChild(dayRowDate);
 
       for(let k = 1; k <= 3; k++){
         const dayRow = document.createElement('TR');
         dayRow.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k);
-        dayTableBody.appendChild(dayRow);
+
+        day.appendChild(dayRow);
 
         for(let l = 1; l <= 2; l++){
           const dayRowCol = document.createElement('TD');
           dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
-          dayRow.appendChild(dayRowCol)
           dayRowCol.innerText = "Hej";
+
+          dayRow.appendChild(dayRowCol)
         }
       }
       week.appendChild(day);
