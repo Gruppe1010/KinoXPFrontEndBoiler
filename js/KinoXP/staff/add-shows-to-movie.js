@@ -188,14 +188,14 @@ function addDatesToCalendar(){
 
       if(innerTextDate <= numberOfDaysInMonth){
 
-      let dayNumber = 1 + j;
+        let dayNumber = 1 + j;
 
-      const td = document.getElementById('week' + i + 'day' + dayNumber + 'date');
+        const td = document.getElementById('week' + i + 'day' + dayNumber + 'date');
 
-      td.innerText = innerTextDate;
+        td.innerText = innerTextDate;
 
-      addBioNumber(i, dayNumber);
-      addBioTimeSlots(i, dayNumber);
+        addBioNumber(i, dayNumber);
+        addBioTimeSlots(i, dayNumber);
       }
     }
   }
