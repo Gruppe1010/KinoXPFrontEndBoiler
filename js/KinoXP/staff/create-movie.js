@@ -1,8 +1,8 @@
-// TODO lav et event på enter hvor den submitter formen
 
 // sikring for at det KUN er staff der kan være på denne side
-const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+const loggedInUser1 = JSON.parse(localStorage.getItem('loggedInUser'));
 
+/*
 if(user.id !== 2){
   alert("Du er ikke den rigtige brugertype for at være på denne side");
 
@@ -11,6 +11,8 @@ if(user.id !== 2){
 
 else
 {
+
+ */
   const pbSubmitMovie = document.getElementById('pbSubmitMovie');
 
   pbSubmitMovie.addEventListener('click', createMovie);
@@ -116,7 +118,6 @@ else
     } else {
       alert("Der skete en fejl");
     }
-  }
 }
 
 

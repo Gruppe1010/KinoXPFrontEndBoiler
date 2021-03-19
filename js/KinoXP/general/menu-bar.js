@@ -1,6 +1,6 @@
 // vi henter hele JSON-stringen ud som vi har gemt på log-in.js og create-user.js
 // denne String laver vi om til et JSON-obj via JSON.parse
-const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
 const loggedInUserId = loggedInUser.id;
 const loggedInUserType = loggedInUser.type;

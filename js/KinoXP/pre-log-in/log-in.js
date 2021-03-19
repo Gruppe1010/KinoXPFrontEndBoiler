@@ -7,6 +7,8 @@ const inputPassword = document.getElementById('password');
 const pbLogIn = document.getElementById('pbLogIn');
 
 pbLogIn.addEventListener('click', logIn);
+//document.addEventListener('keydown', logIn);
+
 
 function logIn() {
 
