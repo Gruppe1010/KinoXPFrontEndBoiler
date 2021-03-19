@@ -1,6 +1,7 @@
 
 // sikring for at det KUN er staff der kan være på denne side
-const loggedInUser1 = JSON.parse(localStorage.getItem('loggedInUser'));
+//Denne er allerede sat i menu-bar.js scriptet køre inden dette script
+//const loggedInUser1 = JSON.parse(localStorage.getItem('loggedInUser'));
 
 /*
 if(user.id !== 2){
