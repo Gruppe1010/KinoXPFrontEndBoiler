@@ -112,10 +112,17 @@ function createCalendar(){
     for(let j = 1; j <= 7; j++){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
-      day.setAttribute('colspan', '2');
+
+
       day.width = '75';
 
-      const dayRow = document.createElement('TR');
+      const dayRowDate = document.createElement('TR');
+      // week1day6date
+      dayRowDate.setAttribute('id', 'week' + i + 'day' + j + 'date');
+      dayRowDate.setAttribute('colspan', '2');
+
+      day.appendChild(dayRowDate);
+
 
       for(let k = 1; k <= 3; k++){
         const dayRow = document.createElement('TR');
@@ -126,6 +133,7 @@ function createCalendar(){
           const dayRowCol = document.createElement('TD');
           dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
           dayRow.appendChild(dayRowCol)
+          dayRowCol.innerText = "Hej";
         }
       }
       week.appendChild(day);
@@ -138,16 +146,19 @@ function addDatesToCalendar(){
 
   let innerTextDate = 0;
 
+  // for-loop for den første kalenderuge
+  // fordi d. 1. måske er en onsdag
   for(let i = 0; i <= 7 - firstDayOfMonth; i++) {
 
     let dayNumber = firstDayOfMonth + i;
 
-    const td = document.getElementById('week1day' + dayNumber);
+    const td = document.getElementById('week1day' + dayNumber + 'date');
 
     innerTextDate++;
 
     td.innerText = innerTextDate;
   }
+  // resten af ugerne i kalenderen
   // for-loop for ugenr
   for(let i = 2; i <=6; i++){
     // for-loop hvor j er dayNumber
@@ -159,7 +170,7 @@ function addDatesToCalendar(){
 
       let dayNumber = 1 + j;
 
-      const td = document.getElementById('week' + i + 'day' + dayNumber);
+      const td = document.getElementById('week' + i + 'day' + dayNumber + 'date');
 
       td.innerText = innerTextDate;
       }
