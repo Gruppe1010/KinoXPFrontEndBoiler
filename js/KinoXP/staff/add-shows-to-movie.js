@@ -131,6 +131,7 @@ function createCalendar(){
           const dayRowCol = document.createElement('TD');
           dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
 
+
           dayRow.appendChild(dayRowCol)
         }
       }
@@ -149,10 +150,31 @@ function addBioNumber(weekNumber, dayNumber){
 }
 
 function addBioTimeSlots(weekNumber, dayNumber){
-  const tdBio1TimeSlot1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 1);
-  const tdBio1TimeSlot2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 2);
-  const tdBio2TimeSlot1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 1);
-  const tdBio2TimeSlot2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 2);
+  // dayrow2 == 16:00-19:00
+  // dayrow3 == 20:00-23:00
+
+  // dayrowcol1 == bio1
+  // dayrowcol2 == bio2
+
+
+  const timeSlot1Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 1;
+  const timeSlot2Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 2;
+  const timeSlot3Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 1;
+  const timeSlot4Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 2;
+
+  // Det er denne variabel som indgår i et Show som attribut
+  // year2021month3week1day3dayrow2dayrowcol1;
+  let uniqueTimeSlot1 = 'year' + year + 'month' + month + timeSlot1Id;
+  let uniqueTimeSlot2 = 'year' + year + 'month' + month + timeSlot2Id;
+  let uniqueTimeSlot3 = 'year' + year + 'month' + month + timeSlot3Id;
+  let uniqueTimeSlot4 = 'year' + year + 'month' + month + timeSlot4Id;
+
+
+
+  const tdBio1TimeSlot1 = document.getElementById(timeSlot1Id);
+  const tdBio1TimeSlot2 = document.getElementById(timeSlot2Id);
+  const tdBio2TimeSlot1 = document.getElementById(timeSlot3Id);
+  const tdBio2TimeSlot2 = document.getElementById(timeSlot4Id);
 
   tdBio1TimeSlot1.innerText = "16:00-19:00";
   tdBio1TimeSlot2.innerText = "20:00-23:00";
