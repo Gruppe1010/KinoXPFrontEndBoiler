@@ -108,10 +108,8 @@ function addDatesToCalendar(){
 
     td.innerText = innerTextDate;
   }
-
   // for-loop for ugenr
   for(let i = 2; i <=6; i++){
-
     // for-loop hvor j er dayNumber
     for(let j = 0; j < 7; j++) {
 
