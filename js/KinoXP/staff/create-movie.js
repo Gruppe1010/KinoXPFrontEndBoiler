@@ -34,6 +34,7 @@ else
   function createMovie() {
 
     const moviePoster = document.getElementById('moviePoster').files[0];
+
     const title = document.getElementById('title').value;
 
     const length = document.getElementById('length').value;

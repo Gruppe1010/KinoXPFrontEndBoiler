@@ -71,7 +71,8 @@ function createMoviePreview(movie){
 
   // vi laver nu den div som skal være i a-tagget
   let divMovie = document.createElement('div');
-  divMovie.classList.add('col-sm-3');
+  divMovie.classList.add('col-sm-2');
+  divMovie.align = "center";
 
 
   // vi laver nu img som skal være i divMovie
@@ -95,6 +96,7 @@ function createMoviePreview(movie){
 
   imgMovie.classList.add('img-responsive');
   imgMovie.style.width='80%';
+  imgMovie.style.height= '330px';
 
   divRow.appendChild(aMovie);
   aMovie.appendChild(divMovie);
