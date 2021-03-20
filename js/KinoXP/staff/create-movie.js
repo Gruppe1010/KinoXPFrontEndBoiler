@@ -118,7 +118,7 @@ else
 
     } else {
       alert("Der skete en fejl");
-    }
+  }
 }
 
 
