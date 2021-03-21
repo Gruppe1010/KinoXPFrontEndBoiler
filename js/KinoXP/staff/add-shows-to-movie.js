@@ -267,11 +267,12 @@ function changeMonth(){
 
   //Udarbejder elementerne
   pbPreviousMonth.setAttribute('id', 'previousMonth');
-  pbPreviousMonth.innerText = "forrige måned";
+  pbPreviousMonth.innerHTML = '&#11164; forrige måned';
   pbPreviousMonth.style.display = 'inline';
 
+
   pbNextMonth.setAttribute('id', 'nextMonth');
-  pbNextMonth.innerText = "næste måned"
+  pbNextMonth.innerHTML = "næste måned &#11166;"
   pbNextMonth.style.display = 'inline';
 
   selectedMonth.setAttribute('id', 'selectedMonth');
