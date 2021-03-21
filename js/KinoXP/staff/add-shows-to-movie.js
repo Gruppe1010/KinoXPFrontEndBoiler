@@ -283,7 +283,7 @@ function changeMonth(){
   selectedYear.setAttribute('id', 'selectedYear');
   selectedYear.innerText = year;
   selectedYear.style.marginRight = '1000px';
-  //selectedYear.style.fontStyle = 'italic';
+  selectedYear.style.fontStyle = 'italic';
 
 
 
