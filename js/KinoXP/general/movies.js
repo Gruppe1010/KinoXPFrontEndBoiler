@@ -25,14 +25,11 @@ fetch(url)
 function showMovies(movie){
   // Hvis der ER film
 
-  //currentRow = createRow();
   createMoviePreview(movie);
+  // TODO muligvis kommenter denne ind igen
  /* if(movie.length !== 0){
-    console.log("succes: ", movie)
 
-    currentRow = createRow();
     createMoviePreview(movie);
-
   }
   else{
 
@@ -48,13 +45,7 @@ function showMovies(movie){
   */
 }
 
-function createRow(){
 
-  let newRow = document.createElement('div');
-  newRow.classList.add('row');
-
-  return newRow;
-}
 
 function createMoviePreview(movie){
   /* Elementet vi laver:
