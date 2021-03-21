@@ -4,6 +4,9 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
+let bookedTimeSlots = [];
+
+
 
 const findNumberOfDaysInMonth = function(month,year) {
   return new Date(year, month, 0).getDate();
@@ -18,9 +21,27 @@ function generateCalendar(){
 
   // vi sætter alle date-variabler som er oprettet ovenfor
   setDateInfo(today);
+
+  getBookedTimeSlots();
+
   changeMonth();
   createCalendar();
   addDatesToCalendar();
+}
+
+function getBookedTimeSlots(){
+
+  const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(movies => bookedTimeSlots = movies)
+    .catch(error => console.log("error: ", error));
+
+  console.log(bookedTimeSlots);
+
+
+
 }
 
 function setDateInfo(today) {
@@ -227,7 +248,6 @@ function addDatesToCalendar(){
   }
 }
 
-
 function changeMonth(){
   //Opretter elementerne
   const divMonth = document.createElement('div');
@@ -283,16 +303,18 @@ function changeMonth(){
     selectedMonth.innerText = "December";
   }
 
+
+
+  function previousMonth(){
+    today.setMonth(today.getMonth() - 1);
+    generateCalendar();
+  }
+
+  function nextMonth(){
+    today.setMonth(today.getMonth() + 1);
+    generateCalendar();
+  }
 }
 
 
-function previousMonth(){
-  today.setMonth(today.getMonth() - 1);
-  generateCalendar();
-}
-
-function nextMonth(){
-  today.setMonth(today.getMonth() + 1);
-  generateCalendar();
-}
 
