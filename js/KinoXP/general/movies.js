@@ -96,7 +96,7 @@ function createMoviePreview(movie){
 
   imgMovie.classList.add('img-responsive');
   imgMovie.style.width='80%';
-  imgMovie.style.maxHeight= '300px';
+  imgMovie.style.maxHeight= '295px';
   imgMovie.style.maxWidth= '200px';
 
   divRow.appendChild(aMovie);
