@@ -3,6 +3,9 @@ const findNumberOfDaysInMonth = function(month,year) {
 };
 
 const divCalendar = document.getElementById('divCalendar');
+const divMonth = document.getElementById('divMonth');
+const pbPreviousMonth = document.createElement('button');
+const pbNextMonth = document.createElement('button');
 
 const today = new Date();
 
@@ -14,13 +17,13 @@ let numberOfDaysInMonth;
 
 // vi sætter alle date-variabler som er oprettet ovenfor
 setDateInfo(today);
-
+changeMonth();
 createCalendar();
 addDatesToCalendar();
 
 function setDateInfo(today) {
   day = today.getDate();
-  month = today.getMonth() + 2; //+ 1;
+  month = today.getMonth() + 1;
   if (month < 10) {
     month = "0" + month;
   }
@@ -125,6 +128,7 @@ function createCalendar(){
         const dayRow = document.createElement('TR');
         dayRow.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k);
 
+
         day.appendChild(dayRow);
 
         for(let l = 1; l <= 2; l++){
@@ -224,3 +228,66 @@ function addDatesToCalendar(){
 
 
 }
+
+
+
+function changeMonth(){
+
+  pbPreviousMonth.setAttribute('id', 'previousMonth');
+  pbPreviousMonth.innerText = "forrige måned";
+  pbPreviousMonth.style.display = 'inline';
+  pbPreviousMonth.style.lineBreak;
+
+
+  pbNextMonth.setAttribute('id', 'nextMonth');
+  pbNextMonth.innerText = "næste måned"
+  pbNextMonth.style.display = 'inline';
+  pbNextMonth.style.lineBreak;
+
+  const selectedMonth = document.createElement('h1');
+  selectedMonth.setAttribute('id', 'selectedMonth');
+  selectedMonth.style.display = 'inline';
+  selectedMonth.style.breakAfter;
+
+  if(month == '01'){
+    selectedMonth.innerText = "Januar";
+  }else if (month == '02'){
+    selectedMonth.innerText = "Februar";
+  }else if (month == '03'){
+    selectedMonth.innerText = "Marts";
+  }else if (month == '04'){
+    selectedMonth.innerText = "April";
+  }else if (month == '05'){
+    selectedMonth.innerText = "Maj";
+  }else if (month == '06'){
+    selectedMonth.innerText = "Juni";
+  }else if (month == '07'){
+    selectedMonth.innerText = "Juli";
+  }else if (month == '08'){
+    selectedMonth.innerText = "August";
+  }else if (month == '09'){
+    selectedMonth.innerText = "September";
+  }else if (month == '10'){
+    selectedMonth.innerText = "Oktober";
+  }else if (month == '11'){
+    selectedMonth.innerText = "November";
+  }else if (month == '12'){
+    selectedMonth.innerText = "December";
+  }
+
+  divMonth.appendChild(pbPreviousMonth);
+  divMonth.appendChild(selectedMonth);
+  divMonth.appendChild(pbNextMonth);
+
+}
+pbPreviousMonth.addEventListener('click', previousMonth);
+pbNextMonth.addEventListener('click', nextMonth);
+
+function previousMonth(){
+
+}
+
+function nextMonth(){
+
+}
+
