@@ -219,8 +219,6 @@ function addDatesToCalendar(){
 
 }
 
-
-
 function changeMonth(){
   //Opretter elementerne
   const divMonth = document.createElement('div');

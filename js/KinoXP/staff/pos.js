@@ -78,19 +78,14 @@ function candy(){
 
     const buttonCandy = document.createElement('button');
 
-    // appender elementer til hinanden
+    // tilføjer elementer til DOM-træet
     posContent.appendChild(outerDivCandy);
     outerDivCandy.appendChild(divCandy);
-    //outerDivCandy.appendChild(aCandy);
 
     divCandy.appendChild(imgCandy);
-    //divCandy.appendChild(document.createElement('br'));
     divCandy.appendChild(pNameCandy);
     divCandy.appendChild(pPriceCandy);
     divCandy.appendChild(pStockCandy);
-
-    //aCandy.appendChild(buttonCandy);
-
 
     // udarbejder elementer
     divCandy.classList.add('col-sm-3');
@@ -139,20 +134,22 @@ function candy(){
 function createCandyFunction(){
   posContent.innerHTML = "";
   /*
-  <div align="center">
-    <label for="candyPoster">Billede</label>
-    <input type="file" name="file" id="candyPoster" required><br><br>
+  <div id="posContent" class="container-fluid bg-3 text-center">
+    <div align="center" class="row"> div
+      <label for="candyPoster">Billede</label>
+      <input type="file" name="file" id="candyPoster" required><br><br>
 
-    <label for="name">Navn</label>
-    <input type="text" name="name" id="name" required><br><br>
+      <label for="name">Navn</label>
+      <input type="text" name="name" id="name" required><br><br>
 
-    <label for="price">Pris pr. stk.</label>
-    <input type="number" name="price" id="price" required><br><br>
+      <label for="price">Pris pr. stk.</label>
+      <input type="number" name="price" id="price" required><br><br>
 
-    <label for="stock">Antal på lager</label>
-    <input type="number" name="stock" id="stock" required><br><br>
+      <label for="stock">Antal på lager</label>
+      <input type="number" name="stock" id="stock" required><br><br>
 
-    <button id="pbSubmitCandy">Tilføj film</button>
+      <button id="pbSubmitCandy">Tilføj film</button>
+    </div>
   </div>
    */
 
@@ -176,6 +173,7 @@ function createCandyFunction(){
   addLabelAndInputToDom(labelName, inputName);
   addLabelAndInputToDom(labelPrice, inputPrice);
   addLabelAndInputToDom(labelStock, inputStock);
+
   function addLabelAndInputToDom(label, input){
     div.appendChild(label);
     div.appendChild(input);
@@ -185,7 +183,9 @@ function createCandyFunction(){
   div.appendChild(button);
 
   // udarbejder elemementer
+  posContent.classList.add('container-fluid', 'bg-3', 'text-center', 'col-sm-2');
   div.align = 'center';
+  div.classList.add('row');
   setInputElement(inputCandyPoster, "file", "candyPoster");
   setInputElement(inputName, "text", "name");
   setInputElement(inputPrice, "number", "price");
