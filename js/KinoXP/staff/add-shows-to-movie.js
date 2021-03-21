@@ -29,6 +29,7 @@ function generateCalendar(){
   addDatesToCalendar();
 }
 
+// TODO det er her vi er ved at arbejde
 function getBookedTimeSlots(){
 
   const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
