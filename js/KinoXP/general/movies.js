@@ -1,5 +1,4 @@
 const url =  'http://localhost:8080/movies';
-const divMovies = document.getElementById('divMovies');
 const divRow = document.getElementById('divRow');
 let currentRow;
 
