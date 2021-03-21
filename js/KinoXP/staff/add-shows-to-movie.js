@@ -238,7 +238,6 @@ function changeMonth(){
   pbPreviousMonth.style.display = 'inline';
   pbPreviousMonth.style.lineBreak;
 
-
   pbNextMonth.setAttribute('id', 'nextMonth');
   pbNextMonth.innerText = "næste måned"
   pbNextMonth.style.display = 'inline';
