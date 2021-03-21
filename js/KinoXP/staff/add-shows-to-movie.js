@@ -254,10 +254,12 @@ function changeMonth(){
   const divMonth = document.createElement('div');
   const pbPreviousMonth = document.createElement('button');
   const selectedMonth = document.createElement('h1');
+  const selectedYear = document.createElement('h1');
   const pbNextMonth = document.createElement('button');
 
   //Tilføjer elementerne
   divCalendar.appendChild(divMonth);
+  divMonth.appendChild(selectedYear);
   divMonth.appendChild(pbPreviousMonth);
   divMonth.appendChild(selectedMonth);
   divMonth.appendChild(pbNextMonth);
@@ -274,6 +276,13 @@ function changeMonth(){
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
+
+  selectedYear.setAttribute('id', 'selectedYear');
+  selectedYear.innerText = year;
+  selectedYear.style.marginRight = '1000px';
+  //selectedYear.style.fontStyle = 'italic';
+
+
 
   pbPreviousMonth.addEventListener('click', previousMonth);
   pbNextMonth.addEventListener('click', nextMonth);
@@ -296,11 +305,11 @@ function changeMonth(){
     selectedMonth.innerText = "August";
   }else if (month === '09'){
     selectedMonth.innerText = "September";
-  }else if (month === '10'){
+  }else if (month === 10){
     selectedMonth.innerText = "Oktober";
-  }else if (month === '11'){
+  }else if (month === 11){
     selectedMonth.innerText = "November";
-  }else if (month === '12'){
+  }else if (month === 12){
     selectedMonth.innerText = "December";
   }
 
