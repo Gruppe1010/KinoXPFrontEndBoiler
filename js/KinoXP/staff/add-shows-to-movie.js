@@ -1,22 +1,27 @@
+let day;
+let month;
+let year;
+let firstDayOfMonth;
+let numberOfDaysInMonth;
+let today = new Date();
+
 const findNumberOfDaysInMonth = function(month,year) {
   return new Date(year, month, 0).getDate();
 };
 
 const divCalendar = document.getElementById('divCalendar');
 
-const today = new Date();
+generateCalendar();
 
-let day;
-let month;
-let year;
-let firstDayOfMonth;
-let numberOfDaysInMonth;
+function generateCalendar(){
+  divCalendar.innerHTML = "";
 
-// vi sætter alle date-variabler som er oprettet ovenfor
-setDateInfo(today);
-changeMonth();
-createCalendar();
-addDatesToCalendar();
+  // vi sætter alle date-variabler som er oprettet ovenfor
+  setDateInfo(today);
+  changeMonth();
+  createCalendar();
+  addDatesToCalendar();
+}
 
 function setDateInfo(today) {
   day = today.getDate();
@@ -27,6 +32,10 @@ function setDateInfo(today) {
   year = today.getFullYear();
 
   firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+  // Da det er i USA er søndag ugen starter bliver søndag evalueret til 0.
+  if(firstDayOfMonth === 0){
+    firstDayOfMonth = 7;
+  }
   numberOfDaysInMonth = findNumberOfDaysInMonth(month, year);
 }
 
@@ -179,6 +188,7 @@ function addBioTimeSlots(weekNumber, dayNumber){
 function addDatesToCalendar(){
 
   let innerTextDate = 0;
+  console.log("Det er den her:" + firstDayOfMonth);
 
   // for-loop for den første kalenderuge
   // fordi d. 1. måske er en onsdag
@@ -188,7 +198,7 @@ function addDatesToCalendar(){
 
     const td = document.getElementById('week1day' + dayNumber + 'date');
     innerTextDate++;
-
+    console.log(innerTextDate)
     td.innerText = innerTextDate;
 
     addBioNumber(1, dayNumber);
@@ -215,10 +225,7 @@ function addDatesToCalendar(){
       }
     }
   }
-
-
 }
-
 
 
 function changeMonth(){
@@ -239,52 +246,53 @@ function changeMonth(){
   pbPreviousMonth.setAttribute('id', 'previousMonth');
   pbPreviousMonth.innerText = "forrige måned";
   pbPreviousMonth.style.display = 'inline';
-  pbPreviousMonth.style.lineBreak;
 
   pbNextMonth.setAttribute('id', 'nextMonth');
   pbNextMonth.innerText = "næste måned"
   pbNextMonth.style.display = 'inline';
-  pbNextMonth.style.lineBreak;
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
-  selectedMonth.style.breakAfter;
 
-  if(month == '01'){
+  pbPreviousMonth.addEventListener('click', previousMonth);
+  pbNextMonth.addEventListener('click', nextMonth);
+
+  if(month === '01'){
     selectedMonth.innerText = "Januar";
-  }else if (month == '02'){
+  }else if (month === '02'){
     selectedMonth.innerText = "Februar";
-  }else if (month == '03'){
+  }else if (month === '03'){
     selectedMonth.innerText = "Marts";
-  }else if (month == '04'){
+  }else if (month === '04'){
     selectedMonth.innerText = "April";
-  }else if (month == '05'){
+  }else if (month === '05'){
     selectedMonth.innerText = "Maj";
-  }else if (month == '06'){
+  }else if (month === '06'){
     selectedMonth.innerText = "Juni";
-  }else if (month == '07'){
+  }else if (month === '07'){
     selectedMonth.innerText = "Juli";
-  }else if (month == '08'){
+  }else if (month === '08'){
     selectedMonth.innerText = "August";
-  }else if (month == '09'){
+  }else if (month === '09'){
     selectedMonth.innerText = "September";
-  }else if (month == '10'){
+  }else if (month === '10'){
     selectedMonth.innerText = "Oktober";
-  }else if (month == '11'){
+  }else if (month === '11'){
     selectedMonth.innerText = "November";
-  }else if (month == '12'){
+  }else if (month === '12'){
     selectedMonth.innerText = "December";
   }
 
 }
-pbPreviousMonth.addEventListener('click', previousMonth);
-pbNextMonth.addEventListener('click', nextMonth);
+
 
 function previousMonth(){
-
+  today.setMonth(today.getMonth() - 1);
+  generateCalendar();
 }
 
 function nextMonth(){
-
+  today.setMonth(today.getMonth() + 1);
+  generateCalendar();
 }
 
