@@ -3,7 +3,6 @@ const posContent = document.getElementById('posContent');
 startPage();
 
 function startPage(){
-  const headline = document.getElementById('headline');
 
 // opretter elementer
   const viewAllCandy = document.createElement('h1');
@@ -28,7 +27,7 @@ function startPage(){
 function candy(){
 
 
-  const url = "https://localhost:8080/candy";
+  const url = "http://localhost:8080/candy";
   const posContent = document.getElementById('posContent');
 
 // først sletter jeg det som før har været på siden
@@ -37,6 +36,8 @@ function candy(){
 
 // let cart = [];
 // localStorage.setItem('cart', );
+
+
 
   fetch(url)
     .then(response => response.json())
@@ -71,6 +72,7 @@ function candy(){
     const divCandy = document.createElement('div');
     const imgCandy = document.createElement('img');
     const pNameCandy = document.createElement('p');
+    const pPriceCandy = document.createElement('p');
     const pStockCandy = document.createElement('p');
 
     const buttonCandy = document.createElement('button');
@@ -78,14 +80,15 @@ function candy(){
     // appender elementer til hinanden
     posContent.appendChild(outerDivCandy);
     outerDivCandy.appendChild(divCandy);
-    outerDivCandy.appendChild(aCandy);
+    //outerDivCandy.appendChild(aCandy);
 
     divCandy.appendChild(imgCandy);
-    divCandy.appendChild('br');
+    //divCandy.appendChild(document.createElement('br'));
     divCandy.appendChild(pNameCandy);
+    divCandy.appendChild(pPriceCandy);
     divCandy.appendChild(pStockCandy);
 
-    aCandy.appendChild(buttonCandy);
+    //aCandy.appendChild(buttonCandy);
 
 
     // udarbejder elementer
@@ -94,23 +97,26 @@ function candy(){
     imgCandy.classList.add('img-responsive');
     imgCandy.style.width = '80%';
     pNameCandy.innerText = candy.name;
-    pStockCandy.innerText = candy.stock;
+    pPriceCandy.innerText = candy.price + " DKK";
+    pStockCandy.innerText = candy.stock + " stk. tilbage";
 
-    buttonCandy.innerText = "Rediger slik";
+    buttonCandy.innerText = "Rediger " + candy.name;
 
-    divCandy.addEventListener('click', addToCart);
+    imgCandy.addEventListener('click', addToCart);
     buttonCandy.addEventListener('click', goToEditCandy);
 
 
     // hvis der ikke er mere slik tilbage, bliver billedet gråt
-    if(candy.quantity === 0){
+    if(candy.stock === 0){
       imgCandy.style.filter = "grayscale(100%)";
     }
 
     outerDivCandy.appendChild(divCandy);
-    outerDivCandy.appendChild(buttonCandy);
+    divCandy.appendChild(buttonCandy);
   }
   function addToCart(candy){
+
+    alert("tilføj");
 
     if(candy.stock === 0){
       alert("Der er ikke flere på lager")
@@ -206,7 +212,7 @@ function createCandyFunction(){
   button.innerText = "Tilføj slik";
 
 
-  // TILFØJ BRUGER
+  // TILFØJ CANDY
 
   button.addEventListener('click', addCandy);
 
@@ -269,13 +275,15 @@ function createCandyFunction(){
 
     function checkIfSuccess(data) {
 
+      console.log(data.id);
+
       if (data.id !== 0) {
         alert("Du har nu oprettet " + data.name + " succesfuldt");
 
         createCandyFunction();
 
       } else {
-        alert("Der skete en fejl");
+        alert("Der skete en fejl!!1");
       }
     }
 
