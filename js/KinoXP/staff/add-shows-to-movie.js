@@ -276,6 +276,8 @@ function changeMonth(){
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
+  selectedMonth.style.padding = '25px';
+
 
   selectedYear.setAttribute('id', 'selectedYear');
   selectedYear.innerText = year;
