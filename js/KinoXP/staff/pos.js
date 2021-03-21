@@ -1,3 +1,4 @@
+
 const posContent = document.getElementById('posContent');
 
 startPage();
@@ -66,7 +67,7 @@ function candy(){
 
      */
     // opretter forskellige elementer
-
+  // TODO lav den der fancy rækkemåde at vise sliket på - ligesom movies
     const outerDivCandy = document.createElement('div');
 
     const divCandy = document.createElement('div');
@@ -114,6 +115,7 @@ function candy(){
     outerDivCandy.appendChild(divCandy);
     divCandy.appendChild(buttonCandy);
   }
+  // TODO
   function addToCart(candy){
 
     alert("tilføj");
