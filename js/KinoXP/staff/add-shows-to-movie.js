@@ -3,9 +3,6 @@ const findNumberOfDaysInMonth = function(month,year) {
 };
 
 const divCalendar = document.getElementById('divCalendar');
-const divMonth = document.getElementById('divMonth');
-const pbPreviousMonth = document.createElement('button');
-const pbNextMonth = document.createElement('button');
 
 const today = new Date();
 
@@ -116,27 +113,27 @@ function createCalendar(){
       const day = document.createElement('TD');
       day.setAttribute('id', 'week' + i + 'day' + j);
 
-      const dayRowDate = document.createElement('TR');
+      const date = document.createElement('TR');
       // week1day6date
-      dayRowDate.setAttribute('id', 'week' + i + 'day' + j + 'date');
-      dayRowDate.setAttribute('colspan', '2');
-      dayRowDate.width = '100%'
+      date.setAttribute('id', 'week' + i + 'day' + j + 'date');
+      date.setAttribute('colspan', '2');
+      date.width = '100%'
 
-      day.appendChild(dayRowDate);
+      day.appendChild(date);
 
       for(let k = 1; k <= 3; k++){
-        const dayRow = document.createElement('TR');
-        dayRow.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k);
+        const row = document.createElement('TR');
+        row.setAttribute('id', 'week' + i + 'day' + j + 'row' + k);
 
 
-        day.appendChild(dayRow);
+        day.appendChild(row);
 
         for(let l = 1; l <= 2; l++){
-          const dayRowCol = document.createElement('TD');
-          dayRowCol.setAttribute('id', 'week' + i + 'day' + j + 'dayrow' + k + 'dayrowcol' + l);
+          const bio = document.createElement('TD');
+          bio.setAttribute('id', 'week' + i + 'day' + j + 'row' + k + 'bio' + l);
 
 
-          dayRow.appendChild(dayRowCol)
+          row.appendChild(bio)
         }
       }
       week.appendChild(day);
@@ -146,43 +143,36 @@ function createCalendar(){
 }
 
 function addBioNumber(weekNumber, dayNumber){
-  const tdBio1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow1dayrowcol' + 1);
-  const tdBio2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'dayrow1dayrowcol' + 2);
+  const tdBio1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 1);
+  const tdBio2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 2);
 
   tdBio1.innerText = " Bio 1 ";
   tdBio2.innerText = " Bio 2 ";
 }
 
 function addBioTimeSlots(weekNumber, dayNumber){
-  // dayrow2 == 16:00-19:00
-  // dayrow3 == 20:00-23:00
-
-  // dayrowcol1 == bio1
-  // dayrowcol2 == bio2
-
-
-  const timeSlot1Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 1;
-  const timeSlot2Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow2dayrowcol' + 2;
-  const timeSlot3Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 1;
-  const timeSlot4Id = 'week' + weekNumber + 'day' + dayNumber + 'dayrow3dayrowcol' + 2;
+  const timeSlot1Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 1;
+  const timeSlot2Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 2;
+  const timeSlot3Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 1;
+  const timeSlot4Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 2;
 
   // Det er denne variabel som indgår i et Show som attribut
-  // year2021month3week1day3dayrow2dayrowcol1;
+  // year2021month3week1day3row2bio1;
+  // TODO Lav lige det her
   let uniqueTimeSlot1 = 'year' + year + 'month' + month + timeSlot1Id;
   let uniqueTimeSlot2 = 'year' + year + 'month' + month + timeSlot2Id;
   let uniqueTimeSlot3 = 'year' + year + 'month' + month + timeSlot3Id;
   let uniqueTimeSlot4 = 'year' + year + 'month' + month + timeSlot4Id;
 
 
-
   const tdBio1TimeSlot1 = document.getElementById(timeSlot1Id);
-  const tdBio1TimeSlot2 = document.getElementById(timeSlot2Id);
-  const tdBio2TimeSlot1 = document.getElementById(timeSlot3Id);
+  const tdBio2TimeSlot1 = document.getElementById(timeSlot2Id);
+  const tdBio1TimeSlot2 = document.getElementById(timeSlot3Id);
   const tdBio2TimeSlot2 = document.getElementById(timeSlot4Id);
 
   tdBio1TimeSlot1.innerText = "16:00-19:00";
-  tdBio1TimeSlot2.innerText = "20:00-23:00";
   tdBio2TimeSlot1.innerText = "16:00-19:00";
+  tdBio1TimeSlot2.innerText = "20:00-23:00";
   tdBio2TimeSlot2.innerText = "20:00-23:00";
 }
 
@@ -232,7 +222,20 @@ function addDatesToCalendar(){
 
 
 function changeMonth(){
+  //Opretter elementerne
+  const divMonth = document.createElement('div');
+  const pbPreviousMonth = document.createElement('button');
+  const selectedMonth = document.createElement('h1');
+  const pbNextMonth = document.createElement('button');
 
+  //Tilføjer elementerne
+  divCalendar.appendChild(divMonth);
+  divMonth.appendChild(pbPreviousMonth);
+  divMonth.appendChild(selectedMonth);
+  divMonth.appendChild(pbNextMonth);
+  divCalendar.appendChild(document.createElement('br'));
+
+  //Udarbejder elementerne
   pbPreviousMonth.setAttribute('id', 'previousMonth');
   pbPreviousMonth.innerText = "forrige måned";
   pbPreviousMonth.style.display = 'inline';
@@ -243,7 +246,6 @@ function changeMonth(){
   pbNextMonth.style.display = 'inline';
   pbNextMonth.style.lineBreak;
 
-  const selectedMonth = document.createElement('h1');
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
   selectedMonth.style.breakAfter;
@@ -273,10 +275,6 @@ function changeMonth(){
   }else if (month == '12'){
     selectedMonth.innerText = "December";
   }
-
-  divMonth.appendChild(pbPreviousMonth);
-  divMonth.appendChild(selectedMonth);
-  divMonth.appendChild(pbNextMonth);
 
 }
 pbPreviousMonth.addEventListener('click', previousMonth);
