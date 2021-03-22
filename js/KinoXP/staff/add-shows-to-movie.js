@@ -28,7 +28,6 @@ function generateCalendar(){
 
   changeMonth();
   createCalendar();
-  addDatesToCalendar();
 }
 
 // Henter alle de bookede film for måneden i det gældende år
@@ -39,12 +38,16 @@ function getBookedTimeSlots(){
 
   fetch(url)
     .then(response => response.json())
-    .then(uniqueTimeSlots => uniqueTimeSlots.forEach(setBookedTimeSlots))
+    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
+    .then(addDatesToCalendar)//uniqueTimeSlots.forEach(setBookedTimeSlots))
     .catch(error => console.log("error: ", error));
+
+
 
   // tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
   function setBookedTimeSlots(timeSlot){
     bookedTimeSlots.push(timeSlot.uniqueTimeSlot);
+    // console.log(bookedTimeSlots);
   }
 }
 
@@ -260,26 +263,17 @@ function addDatesToCalendar(){
       // year2021month3week1day3row2bio1;
       const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
 
-      let timeSlotIsBooked;
-
-      console.log(bookedTimeSlots.forEach(test));
-
-      function test(time){
-        return time;
-        console.log(time == 'year' + year + 'month' + month + timeSlotId);
-      }
-
-
-      //console.log(Arrays.asList(bookedTimeSlots).contains('year' + year + 'month' + month + timeSlotId));
-      // if(Arrays.asList(codes).contains(userCode))
-      /*
-      if(bookedTimeSlots.has(uniqueTimeSlot)){
-        console.log("Hej");
+      if(bookedTimeSlots.includes(uniqueTimeSlot)) {
         timeSlotElement.style.backgroundColor = '#FD7B7B';
 
       }
+      else{
 
-       */
+
+
+      }
+
+
     }
 
 
