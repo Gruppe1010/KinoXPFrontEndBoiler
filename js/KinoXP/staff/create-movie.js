@@ -109,15 +109,16 @@ else
     return JSON.stringify(movie);
   }
 
-  function checkIfSuccess(data) {
+  function checkIfSuccess(movie) {
 
-    if (data.id !== 0) {
-      console.log("succes: " + data);
-      alert("Filmen " + data.title + " er nu oprettet succesfuldt");
-      console.log("agelimit " + data.ageLimit);
-      window.location.replace('../staff/add-shows-to-movie.html')
-
-    } else {
+    if (movie.id !== 0) {
+      console.log("succes: " + movie);
+      alert("Filmen " + movie.title + " er nu oprettet succesfuldt");
+      console.log("agelimit " + movie.ageLimit);
+      localStorage.setItem('movie', JSON.stringify(movie));
+      window.location.replace('../staff/add-shows-to-movie.html');
+    }
+    else {
       alert("Der skete en fejl");
   }
 }

@@ -1,3 +1,5 @@
+const movie = JSON.parse(localStorage.getItem('movie'));
+
 let day;// TODO overvej at skære fra
 let month;
 let year;
@@ -5,6 +7,8 @@ let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
 let bookedTimeSlots = [];
+let tempChosenTimeSlots = [];
+let filteredChosenTimeSlots = [];
 
 
 
@@ -34,21 +38,15 @@ function generateCalendar(){
 // tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
 function getBookedTimeSlots(){
 
-  const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
+  const url = `http://localhost:8080/unique-time-slots?year=${year}&month=${month}`;
 
   fetch(url)
     .then(response => response.json())
+    // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
     .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
-    .then(addDatesToCalendar)//uniqueTimeSlots.forEach(setBookedTimeSlots))
+    .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 
-
-
-  // tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
-  function setBookedTimeSlots(timeSlot){
-    bookedTimeSlots.push(timeSlot.uniqueTimeSlot);
-    // console.log(bookedTimeSlots);
-  }
 }
 
 
@@ -72,6 +70,12 @@ function setDateInfo(today) {
 
 // Opretter alle celler i tabellen
 function createCalendar(){
+  const btnSubmit = document.createElement('button');
+  btnSubmit.setAttribute('id', 'btnSubmit');
+  btnSubmit.addEventListener('click', addChosenTimeSlotsToMovie);
+  btnSubmit.innerText = "Tilføj valgte tider";
+  btnSubmit.style.backgroundColor = '#c1f3ba';
+
   const table = document.createElement('TABLE');
   table.border = '1';
 
@@ -81,33 +85,22 @@ function createCalendar(){
   const headlineRow = document.createElement('TR');
   headlineRow.setAttribute('id', 'headlineRow');
 
-  const monday = document.createElement('TH');
-  monday.setAttribute('id', 'monday');
-  monday.innerText = "Mandag";
+  const monday = createDayElements('monday', 'Mandag');
+  const tuesday = createDayElements('tuesday', 'Tirsdag');
+  const wednesday = createDayElements('wednesday', 'Onsdag');
+  const thursday = createDayElements('thursday', 'Torsdag');
+  const friday = createDayElements('friday', 'Fredag');
+  const saturday = createDayElements('saturday', 'Lørdag');
+  const sunday = createDayElements('sunday', 'Søndag');
 
-  const tuesday = document.createElement('TH');
-  tuesday.setAttribute('id', 'tuesday');
-  tuesday.innerText = "Tirsdag";
+  function createDayElements(idDay, innerTextDay){
+    const dayElement = document.createElement('TH');
+    dayElement.setAttribute('id', idDay);
+    dayElement.innerText = innerTextDay;
+    dayElement.style.backgroundColor = '#a0a09d';
 
-  const wednesday = document.createElement('TH');
-  wednesday.setAttribute('id', 'wednesday');
-  wednesday.innerText = "Onsdag";
-
-  const thursday = document.createElement('TH');
-  thursday.setAttribute('id', 'thursday');
-  thursday.innerText = "Torsdag";
-
-  const friday = document.createElement('TH');
-  friday.setAttribute('id', 'friday');
-  friday.innerText = "Fredag";
-
-  const saturday = document.createElement('TH');
-  saturday.setAttribute('id', 'saturday');
-  saturday.innerText = "Lørdag";
-
-  const sunday = document.createElement('TH');
-  sunday.setAttribute('id', 'sunday');
-  sunday.innerText = "Søndag";
+    return dayElement;
+  }
 
   headlineRow.appendChild(monday);
   headlineRow.appendChild(tuesday);
@@ -117,6 +110,7 @@ function createCalendar(){
   headlineRow.appendChild(saturday);
   headlineRow.appendChild(sunday);
   tableBody.appendChild(headlineRow)
+
 
   /*
   <table border="1">
@@ -159,6 +153,8 @@ function createCalendar(){
       date.setAttribute('id', 'week' + i + 'day' + j + 'date');
       date.setAttribute('colspan', '2');
       date.width = '100%'
+      date.style.fontWeight = 'bold';
+      date.style.fontSize = '15px';
 
       day.appendChild(date);
 
@@ -181,6 +177,53 @@ function createCalendar(){
     }
   }
   divCalendar.appendChild(table);
+  divCalendar.appendChild(document.createElement('br'));
+  divCalendar.appendChild(btnSubmit);
+
+  function addChosenTimeSlotsToMovie(){
+    // hver gang vi fjerner noget fra array'et laver
+    filteredChosenTimeSlots = tempChosenTimeSlots.filter(function (el) {
+      return el != null;
+    });
+
+    const body = filteredChosenTimeSlots.map(createUniqueTimeSlotJSON);
+
+    console.log(body);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+      },
+      body: body
+    };
+
+    const url = 'http://localhost:8080/unique-time-slots';
+
+    fetch(url, requestOptions)
+      .then(result => result.json())
+      .then(redirect)
+      .catch(error => console.log("error", error));
+
+
+    function redirect(){
+      localStorage.setItem('movie', '');
+      window.location.replace('../staff/create-movie.html');
+    }
+
+    function createUniqueTimeSlotJSON(uniqueTimeSlot){
+
+      const uniqueTimeSlotJSON = {
+        'unique_time_slot': uniqueTimeSlot,
+        'id_movie': movie.id
+      }
+
+      return JSON.stringify(uniqueTimeSlotJSON);
+    }
+
+
+  }
+
 }
 
 // tilføjer ALT indhold til cellerne
@@ -231,6 +274,10 @@ function addDatesToCalendar(){
 
     tdBio1.innerText = " Bio 1 ";
     tdBio2.innerText = " Bio 2 ";
+
+    // vi tilføjer grå baggrundsfarve på bio-felter
+    tdBio1.style.backgroundColor = '#dddada';
+    tdBio2.style.backgroundColor = '#dddada';
   }
 
   // tilføjer tidspunkterne 16-19 og 20-23 i de 4 tidspunktsceller i ÉN dagsfirkant
@@ -253,33 +300,58 @@ function addDatesToCalendar(){
     tdBio1TimeSlot2.innerText = "20:00-23:00";
     tdBio2TimeSlot2.innerText = "20:00-23:00";
 
-    setBookedTimeSlotsToRed(timeSlot1Id, tdBio1TimeSlot1);
-    setBookedTimeSlotsToRed(timeSlot2Id, tdBio1TimeSlot2);
-    setBookedTimeSlotsToRed(timeSlot3Id, tdBio2TimeSlot1);
-    setBookedTimeSlotsToRed(timeSlot4Id, tdBio2TimeSlot2);
+    setBookedTimeSlotsToRedAndBlue(timeSlot1Id, tdBio1TimeSlot1);
+    setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio1TimeSlot2);
+    setBookedTimeSlotsToRedAndBlue(timeSlot3Id, tdBio2TimeSlot1);
+    setBookedTimeSlotsToRedAndBlue(timeSlot4Id, tdBio2TimeSlot2);
 
-    function setBookedTimeSlotsToRed(timeSlotId, timeSlotElement){
+    function setBookedTimeSlotsToRedAndBlue(timeSlotId, timeSlotElement){
       // Det er denne variabel som indgår i UniqueTimeSlot-klassen som attribut
       // year2021month3week1day3row2bio1;
       const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
 
+      // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
       if(bookedTimeSlots.includes(uniqueTimeSlot)) {
         timeSlotElement.style.backgroundColor = '#FD7B7B';
 
       }
+      // vi tilføjer en eventListener på alle de IKKE-optagede tidsceller
       else{
+        /* funktionen addTimeSlot kaldes når der trykkes på et ikke-rødt felt
+            Den tjekker om feltet allerede er på chosenTimeSlots-arrayet
+              hvis den ikke er: tilføjes den til array'et og farven ændres til blå
+              hvis den er: tages den af array'et og farven ændres til hvid igen
+         */
+        timeSlotElement.addEventListener('click', addOrRemoveTimeSlotToChosenTimeSlotsArray);
+      }
 
-
-
+      // vi sørger for at de timeSlots som ligger på chosenTimeSlots bliver blå
+      // ... hvis man skifter måned og kalenderen reloades
+      if(tempChosenTimeSlots.includes(uniqueTimeSlot)) {
+        timeSlotElement.style.backgroundColor = '#7bd8fd';
       }
 
 
+      function addOrRemoveTimeSlotToChosenTimeSlotsArray(){
+        // hvis feltet IKKE er valgt
+        if(!tempChosenTimeSlots.includes(uniqueTimeSlot)){
+          // ændrer vi cellens farve til blå, for at indikere at den er valgt
+          timeSlotElement.style.backgroundColor = '#7bd8fd';
+          // tilføjer til tempChosenTimeSlots-arrayet
+          tempChosenTimeSlots.push(uniqueTimeSlot);
+        }
+        // hvis feltet ER valgt
+        else{
+
+          // ændrer vi cellens farve til hvid, for at indikere at den er IKKE valgt
+          timeSlotElement.style.backgroundColor = '';
+
+          // sletter vi den fra tempChosenTimeSlots-arrayet
+          // vi finder det index-tal hvor uniqueTimeSlot ligger, og sletter det fra listen
+          delete tempChosenTimeSlots[tempChosenTimeSlots.indexOf(uniqueTimeSlot)];
+        }
+      }
     }
-
-
-
-
-
   }
 }
 
@@ -304,11 +376,13 @@ function changeMonth(){
   pbPreviousMonth.setAttribute('id', 'previousMonth');
   pbPreviousMonth.innerHTML = '&#11164; forrige måned';
   pbPreviousMonth.style.display = 'inline';
+  pbPreviousMonth.style.backgroundColor = '#d7f1d1';
 
 
   pbNextMonth.setAttribute('id', 'nextMonth');
   pbNextMonth.innerHTML = "næste måned &#11166;"
   pbNextMonth.style.display = 'inline';
+  pbNextMonth.style.backgroundColor = '#c1f3ba';
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
