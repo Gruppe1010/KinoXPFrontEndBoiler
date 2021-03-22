@@ -22,6 +22,7 @@ fetch(url)
 
 
 function showMovies(movie){
+
   // Hvis der ER film
 
   createMoviePreview(movie);

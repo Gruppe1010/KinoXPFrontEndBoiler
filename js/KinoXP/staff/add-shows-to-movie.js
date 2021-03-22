@@ -1,4 +1,4 @@
-let day;
+let day;// TODO overvej at skære fra
 let month;
 let year;
 let firstDayOfMonth;
@@ -16,12 +16,14 @@ const divCalendar = document.getElementById('divCalendar');
 
 generateCalendar();
 
+// Laver HELE kalenderen - kalder alle andre funktioner
 function generateCalendar(){
   divCalendar.innerHTML = "";
 
   // vi sætter alle date-variabler som er oprettet ovenfor
   setDateInfo(today);
 
+  // her henter vi alle de bookede film for måneden
   getBookedTimeSlots();
 
   changeMonth();
@@ -29,22 +31,26 @@ function generateCalendar(){
   addDatesToCalendar();
 }
 
-// TODO det er her vi er ved at arbejde
+// Henter alle de bookede film for måneden i det gældende år
+// tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
 function getBookedTimeSlots(){
 
   const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
 
   fetch(url)
     .then(response => response.json())
-    .then(movies => bookedTimeSlots = movies)
+    .then(uniqueTimeSlots => uniqueTimeSlots.forEach(setBookedTimeSlots))
     .catch(error => console.log("error: ", error));
 
-  console.log(bookedTimeSlots);
-
-
-
+  // tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
+  function setBookedTimeSlots(timeSlot){
+    bookedTimeSlots.push(timeSlot.uniqueTimeSlot);
+  }
 }
 
+
+
+// sætter alle date-attributter
 function setDateInfo(today) {
   day = today.getDate();
   month = today.getMonth() + 1;
@@ -61,6 +67,7 @@ function setDateInfo(today) {
   numberOfDaysInMonth = findNumberOfDaysInMonth(month, year);
 }
 
+// Opretter alle celler i tabellen
 function createCalendar(){
   const table = document.createElement('TABLE');
   table.border = '1';
@@ -173,44 +180,10 @@ function createCalendar(){
   divCalendar.appendChild(table);
 }
 
-function addBioNumber(weekNumber, dayNumber){
-  const tdBio1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 1);
-  const tdBio2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 2);
-
-  tdBio1.innerText = " Bio 1 ";
-  tdBio2.innerText = " Bio 2 ";
-}
-
-function addBioTimeSlots(weekNumber, dayNumber){
-  const timeSlot1Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 1;
-  const timeSlot2Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 2;
-  const timeSlot3Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 1;
-  const timeSlot4Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 2;
-
-  // Det er denne variabel som indgår i et Show som attribut
-  // year2021month3week1day3row2bio1;
-  // TODO Lav lige det her
-  let uniqueTimeSlot1 = 'year' + year + 'month' + month + timeSlot1Id;
-  let uniqueTimeSlot2 = 'year' + year + 'month' + month + timeSlot2Id;
-  let uniqueTimeSlot3 = 'year' + year + 'month' + month + timeSlot3Id;
-  let uniqueTimeSlot4 = 'year' + year + 'month' + month + timeSlot4Id;
-
-
-  const tdBio1TimeSlot1 = document.getElementById(timeSlot1Id);
-  const tdBio2TimeSlot1 = document.getElementById(timeSlot2Id);
-  const tdBio1TimeSlot2 = document.getElementById(timeSlot3Id);
-  const tdBio2TimeSlot2 = document.getElementById(timeSlot4Id);
-
-  tdBio1TimeSlot1.innerText = "16:00-19:00";
-  tdBio2TimeSlot1.innerText = "16:00-19:00";
-  tdBio1TimeSlot2.innerText = "20:00-23:00";
-  tdBio2TimeSlot2.innerText = "20:00-23:00";
-}
-
+// tilføjer ALT indhold til cellerne
 function addDatesToCalendar(){
 
   let innerTextDate = 0;
-  console.log("Det er den her:" + firstDayOfMonth);
 
   // for-loop for den første kalenderuge
   // fordi d. 1. måske er en onsdag
@@ -220,7 +193,7 @@ function addDatesToCalendar(){
 
     const td = document.getElementById('week1day' + dayNumber + 'date');
     innerTextDate++;
-    console.log(innerTextDate)
+
     td.innerText = innerTextDate;
 
     addBioNumber(1, dayNumber);
@@ -247,8 +220,76 @@ function addDatesToCalendar(){
       }
     }
   }
+
+// tilføjer teksterne "Bio 1" og "Bio 2"
+  function addBioNumber(weekNumber, dayNumber){
+    const tdBio1 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 1);
+    const tdBio2 = document.getElementById('week' + weekNumber + 'day' + dayNumber + 'row1bio' + 2);
+
+    tdBio1.innerText = " Bio 1 ";
+    tdBio2.innerText = " Bio 2 ";
+  }
+
+  // tilføjer tidspunkterne 16-19 og 20-23 i de 4 tidspunktsceller i ÉN dagsfirkant
+  function addBioTimeSlots(weekNumber, dayNumber){
+    // vi laver id-Strings til hver celle
+    const timeSlot1Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 1;
+    const timeSlot2Id = 'week' + weekNumber + 'day' + dayNumber + 'row2bio' + 2;
+    const timeSlot3Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 1;
+    const timeSlot4Id = 'week' + weekNumber + 'day' + dayNumber + 'row3bio' + 2;
+
+    // vi hiver fat i de 4 elementer ud fra id-Stringsne
+    const tdBio1TimeSlot1 = document.getElementById(timeSlot1Id);
+    const tdBio2TimeSlot1 = document.getElementById(timeSlot2Id);
+    const tdBio1TimeSlot2 = document.getElementById(timeSlot3Id);
+    const tdBio2TimeSlot2 = document.getElementById(timeSlot4Id);
+
+    // vi sætter tidspunktet
+    tdBio1TimeSlot1.innerText = "16:00-19:00";
+    tdBio2TimeSlot1.innerText = "16:00-19:00";
+    tdBio1TimeSlot2.innerText = "20:00-23:00";
+    tdBio2TimeSlot2.innerText = "20:00-23:00";
+
+    setBookedTimeSlotsToRed(timeSlot1Id, tdBio1TimeSlot1);
+    setBookedTimeSlotsToRed(timeSlot2Id, tdBio1TimeSlot2);
+    setBookedTimeSlotsToRed(timeSlot3Id, tdBio2TimeSlot1);
+    setBookedTimeSlotsToRed(timeSlot4Id, tdBio2TimeSlot2);
+
+    function setBookedTimeSlotsToRed(timeSlotId, timeSlotElement){
+      // Det er denne variabel som indgår i UniqueTimeSlot-klassen som attribut
+      // year2021month3week1day3row2bio1;
+      const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
+
+      let timeSlotIsBooked;
+
+      console.log(bookedTimeSlots.forEach(test));
+
+      function test(time){
+        return time;
+        console.log(time == 'year' + year + 'month' + month + timeSlotId);
+      }
+
+
+      //console.log(Arrays.asList(bookedTimeSlots).contains('year' + year + 'month' + month + timeSlotId));
+      // if(Arrays.asList(codes).contains(userCode))
+      /*
+      if(bookedTimeSlots.has(uniqueTimeSlot)){
+        console.log("Hej");
+        timeSlotElement.style.backgroundColor = '#FD7B7B';
+
+      }
+
+       */
+    }
+
+
+
+
+
+  }
 }
 
+// skift måned knapperne
 function changeMonth(){
   //Opretter elementerne
   const divMonth = document.createElement('div');
@@ -290,6 +331,8 @@ function changeMonth(){
   pbPreviousMonth.addEventListener('click', previousMonth);
   pbNextMonth.addEventListener('click', nextMonth);
 
+  // 01-09 er lavet som strings, fordi vi manuelt tilføjer et 0 længere oppe hvis måneden < 10
+  // derfor bliver den lavet om til en string, mens hvis den er over 10 er det stadig en int
   if(month === '01'){
     selectedMonth.innerText = "Januar";
   }else if (month === '02'){
