@@ -38,15 +38,23 @@ function generateCalendar(){
 // tilføjer uniqueTimeSlot-strings til bookedTimeSlots-Set
 function getBookedTimeSlots(){
 
-  const url = `http://localhost:8080/unique-time-slots?year=${year}&month=${month}`;
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+    }
+  };
 
-  fetch(url)
+  const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
+
+  console.log(url);
+
+  fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
-    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
+    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)//uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
-
 }
 
 
@@ -188,14 +196,15 @@ function createCalendar(){
 
     const body = filteredChosenTimeSlots.map(createUniqueTimeSlotJSON);
 
-    console.log(body);
+    console.log(JSON.stringify(body));
+
 
     const requestOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // betyder == vi sender et json i string-format
       },
-      body: body
+      body: JSON.stringify(body)
     };
 
     const url = 'http://localhost:8080/unique-time-slots';
@@ -207,19 +216,22 @@ function createCalendar(){
 
 
     function redirect(){
-      localStorage.setItem('movie', '');
-      window.location.replace('../staff/create-movie.html');
+      //localStorage.setItem('movie', '');
+      // TODO window.location.replace('../staff/create-movie.html');
     }
 
+    /*
     function createUniqueTimeSlotJSON(uniqueTimeSlot){
 
       const uniqueTimeSlotJSON = {
-        'unique_time_slot': uniqueTimeSlot,
-        'id_movie': movie.id
-      }
+        'uniqueTimeSlot': uniqueTimeSlot,
+        // TODO'idMovie': movie.id
+      };
 
-      return JSON.stringify(uniqueTimeSlotJSON);
+      return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
     }
+
+     */
 
 
   }
@@ -376,13 +388,13 @@ function changeMonth(){
   pbPreviousMonth.setAttribute('id', 'previousMonth');
   pbPreviousMonth.innerHTML = '&#11164; forrige måned';
   pbPreviousMonth.style.display = 'inline';
-  pbPreviousMonth.style.backgroundColor = '#ffa3ef';
+  pbPreviousMonth.style.backgroundColor = '#dddada';
 
 
   pbNextMonth.setAttribute('id', 'nextMonth');
   pbNextMonth.innerHTML = "næste måned &#11166;"
   pbNextMonth.style.display = 'inline';
-  pbNextMonth.style.backgroundColor = '#ffa3ef';
+  pbNextMonth.style.backgroundColor = '#dddada';
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
