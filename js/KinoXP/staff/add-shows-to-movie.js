@@ -216,22 +216,22 @@ function createCalendar(){
 
 
     function redirect(){
-      //localStorage.setItem('movie', '');
+      localStorage.setItem('movie', '');
       // TODO window.location.replace('../staff/create-movie.html');
     }
 
-    /*
+
     function createUniqueTimeSlotJSON(uniqueTimeSlot){
 
       const uniqueTimeSlotJSON = {
         'uniqueTimeSlot': uniqueTimeSlot,
-        // TODO'idMovie': movie.id
+        'idMovie': movie.id
       };
 
       return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
     }
 
-     */
+
 
 
   }
