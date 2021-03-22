@@ -376,13 +376,13 @@ function changeMonth(){
   pbPreviousMonth.setAttribute('id', 'previousMonth');
   pbPreviousMonth.innerHTML = '&#11164; forrige måned';
   pbPreviousMonth.style.display = 'inline';
-  pbPreviousMonth.style.backgroundColor = '#d7f1d1';
+  pbPreviousMonth.style.backgroundColor = '#ffa3ef';
 
 
   pbNextMonth.setAttribute('id', 'nextMonth');
   pbNextMonth.innerHTML = "næste måned &#11166;"
   pbNextMonth.style.display = 'inline';
-  pbNextMonth.style.backgroundColor = '#c1f3ba';
+  pbNextMonth.style.backgroundColor = '#ffa3ef';
 
   selectedMonth.setAttribute('id', 'selectedMonth');
   selectedMonth.style.display = 'inline';
