@@ -210,14 +210,15 @@ function createCalendar(){
     const url = 'http://localhost:8080/unique-time-slots';
 
     fetch(url, requestOptions)
-      .then(result => result.json())
+      .then(console.log)
+      //.then(result => result.json())
       .then(redirect)
       .catch(error => console.log("error", error));
 
 
     function redirect(){
       localStorage.setItem('movie', '');
-      // TODO window.location.replace('../staff/create-movie.html');
+      window.location.replace('../staff/create-movie.html');
     }
 
 
@@ -230,9 +231,6 @@ function createCalendar(){
 
       return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
     }
-
-
-
 
   }
 
@@ -313,8 +311,8 @@ function addDatesToCalendar(){
     tdBio2TimeSlot2.innerText = "20:00-23:00";
 
     setBookedTimeSlotsToRedAndBlue(timeSlot1Id, tdBio1TimeSlot1);
-    setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio1TimeSlot2);
-    setBookedTimeSlotsToRedAndBlue(timeSlot3Id, tdBio2TimeSlot1);
+    setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio2TimeSlot1);
+    setBookedTimeSlotsToRedAndBlue(timeSlot3Id, tdBio1TimeSlot2);
     setBookedTimeSlotsToRedAndBlue(timeSlot4Id, tdBio2TimeSlot2);
 
     function setBookedTimeSlotsToRedAndBlue(timeSlotId, timeSlotElement){
