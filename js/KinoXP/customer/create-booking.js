@@ -1,6 +1,6 @@
-const movie = JSON.parse(localStorage.getItem('selectedMovie'));
+const testMovie = JSON.parse(localStorage.getItem('selectedMovie'));
 const title = document.getElementById('title');
-
+console.log(testMovie);
 let day;// TODO overvej at skære fra
 let month;
 let year;
@@ -8,6 +8,7 @@ let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
 let bookedTimeSlots = [];
+let bookedTimeSlotElements = [];
 let chosenTimeSlot;
 
 
@@ -45,14 +46,15 @@ function getBookedTimeSlots(){
     }
   };
 
-  const url = `http://localhost:8080/unique-time-slots/id-movie/${movie.id}`;
+  const url = `http://localhost:8080/unique-time-slots/id-movie/${testMovie.id}`;
 
   console.log(url);
 
   fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
-    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)//uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
+    .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
+    .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
@@ -224,7 +226,7 @@ function createCalendar(){
 
       const uniqueTimeSlotJSON = {
         'uniqueTimeSlot': uniqueTimeSlot,
-        'idMovie': movie.id
+        'idMovie': testMovie.id
       };
 
       return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
@@ -462,7 +464,7 @@ function getBookedSeats(){
     }
   };
 
-  const url = `http://localhost:8080/bookings/id-movie/${movie.id}`;
+  const url = `http://localhost:8080/bookings/id-movie/${testMovie.id}`;
 
   console.log(url);
 
@@ -551,7 +553,7 @@ function createTheater(rows, seatsPrRow){
 
       const uniqueTimeSlotJSON = {
         'uniqueTimeSlot': uniqueTimeSlot,
-        'idMovie': movie.id
+        'idMovie': testMovie.id
       };
 
       return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);

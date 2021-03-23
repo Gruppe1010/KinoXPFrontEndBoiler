@@ -1,4 +1,4 @@
-const movie = JSON.parse(localStorage.getItem('selectedMovie'));
+const selectedMovie = JSON.parse(localStorage.getItem('selectedMovie'));
 const divMoviePreview = document.getElementById('divMoviePreview');
 
 
@@ -6,15 +6,15 @@ const divMoviePreview = document.getElementById('divMoviePreview');
 
 // vi laver nu img som skal være i divMovie
 let imgMovie = document.createElement('img');
-imgMovie.src = movie.base64;
+imgMovie.src = selectedMovie.base64;
 
 let pTitle = document.createElement('p');
-pTitle.innerText=movie.title;
+pTitle.innerText=selectedMovie.title;
 pTitle.style.fontWeight='bolder';
 pTitle.style.fontSize='25px';
 
 let pPremiere = document.createElement('p');
-let premiere =movie.premiere;
+let premiere = selectedMovie.premiere;
 pPremiere.style.fontSize='15px'
 pPremiere.style.fontStyle='italic';
 
@@ -24,14 +24,14 @@ if (premiere == null){
 pPremiere.innerText ="Premieredato: " + premiere;
 
 let pYearOfRelease = document.createElement('p');
-pYearOfRelease.innerText="Udgivelsesår: " + movie.yearOfRelease ;
+pYearOfRelease.innerText="Udgivelsesår: " + selectedMovie.yearOfRelease ;
 
 let pLength = document.createElement('p');
-pLength.innerText=movie.length + " minutter";
+pLength.innerText=selectedMovie.length + " minutter";
 
 //TODO indsæt billeder
 let pAgeLimit = document.createElement('p');
-pAgeLimit.innerText=movie.ageLimit;
+pAgeLimit.innerText=selectedMovie.ageLimit;
 
 let aBook = document.createElement('a');
 aBook.href="../customer/create-booking.html";

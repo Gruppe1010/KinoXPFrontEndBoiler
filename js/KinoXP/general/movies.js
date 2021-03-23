@@ -63,6 +63,7 @@ function createMoviePreview(movie){
   *
   * */
 
+  //TODO HER ER DER FEEEEJL
   // vi laver nu a-tagget - giver det en href og et id
   let aMovie = document.createElement('a');
   aMovie.href = '../general/view-movie.html';
