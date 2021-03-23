@@ -70,6 +70,11 @@ function createMoviePreview(movie){
   aMovie.setAttribute('id', movie.id);
   aMovie.addEventListener('click', addMovieToLocalStorage);
 
+  function addMovieToLocalStorage(){
+    localStorage.setItem('selectedMovie', JSON.stringify(movie));
+
+  }
+
   // vi laver nu den div som skal være i a-tagget
   let divMovie = document.createElement('div');
   divMovie.classList.add('col-sm-2');
@@ -107,10 +112,7 @@ function createMoviePreview(movie){
   divMovie.appendChild(pTitle);
   divMovie.appendChild(pPremiere);
 
-  function addMovieToLocalStorage(){
-    localStorage.setItem('selectedMovie', JSON.stringify(movie));
 
-  }
 
 }
 
