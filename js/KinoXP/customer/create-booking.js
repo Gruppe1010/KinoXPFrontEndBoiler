@@ -1,4 +1,5 @@
 const movie = JSON.parse(localStorage.getItem('selectedMovie'));
+const title = document.getElementById('title');
 
 let day;// TODO overvej at skære fra
 let month;
@@ -430,9 +431,24 @@ function changeMonth(){
 // opretter biograf med sæder
 function generateSeatsTable(){
   divCalendar.innerHTML = "";
+  title.innerText = "Vælg sæder";
   //TODO
   //getBookedSeats();
-  createTheater(5,5);
+
+   const theaterNo = chosenTimeSlot.substring(31, 32);
+   let rows;
+   let seatsPrRow;
+
+   if(theaterNo == 1){
+     rows = 20;
+     seatsPrRow = 12;
+   }
+   else {
+     rows = 25;
+     seatsPrRow = 16;
+   }
+
+  createTheater(rows,seatsPrRow);
 
 }
 
@@ -511,9 +527,11 @@ function createTheater(rows, seatsPrRow){
       const seat = document.createElement('TD');
       seat.setAttribute('id', 'row' + i + 'seat' + j);
       row.appendChild(seat);
-      seat.style.fontSize = '25px';
+      seat.style.fontSize = '15px';
       seat.innerHTML = '<i class="fas fa-couch" aria-hidden="true"></i>'
       seat.style.color = 'green';
+      seat.style.paddingLeft = '3px';
+      seat.style.paddingRight = '3px';
 
     }
   }
