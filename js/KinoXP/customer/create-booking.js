@@ -490,33 +490,6 @@ function createTheater(rows, seatsPrRow){
   const tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
 
-
-  /*
-  <table border="1">
-    <tbody>
-
-    <td>
-      <tr>
-        <td colspan="2">hrj</td>
-      </tr>
-      <tr>
-        <td>123</td>
-        <td>123</td>
-      </tr>
-      <tr>
-        <td>123</td>
-        <td>123</td>
-      </tr>
-      <tr>
-        <td>123</td>
-        <td>123</td>
-      </tr>
-
-    </td>
-    </tbody>
-  </table>
-  */
-
   for(let i = 1; i <= rows; i++){
     const row = document.createElement('TR');
     row.setAttribute('id', 'row' + i);
