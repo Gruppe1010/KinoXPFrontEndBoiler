@@ -7,7 +7,7 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-let bookedTimeSlots = [];
+// let bookedTimeSlots = [];
 let bookedTimeSlotElements = [];
 let chosenTimeSlot;
 
@@ -52,7 +52,7 @@ function getBookedTimeSlots(){
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
     .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
-    .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
+    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
@@ -265,18 +265,23 @@ function addDatesToCalendar(){
       // year2021month3week1day3row2bio1;
       const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
 
+      // Vi sætter afspillingstidspunkerne til at være grønne!!!!!! - vi skal altså se om hvert timeSlot-felt ER på vores bookedTimeSlotElements-liste
+      // bookedTimeSlotElements == liste med alle vores UniqueTimeSlot-objekter på tilhørende movie
+      // filter(x => x.uniqueTimeSlot == uniqueTimeSlot) == vi sorterer alle fra som IKKE er lige uniqueTimeSlot-stringen
+      // dette bør efterlade os med én, hvis den er der
+      let timeSlotElementThatMatches = bookedTimeSlotElements.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
+
       // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
-      if(bookedTimeSlots.includes(uniqueTimeSlot)) {
+      if(timeSlotElementThatMatches.length > 0) {
         timeSlotElement.style.backgroundColor = '#21f683';
         // vi tilføjer en eventListener på alle optagede tidsceller
         timeSlotElement.addEventListener('click', chooseTimeSlot);
       }
 
-      //TODO her skal vi ændre i funktionen
+      // vi sætter chosenTimeSlot-variablen til at være det uniqueTimeSlot som brugeren har valgt på kalenderen
       function chooseTimeSlot(){
 
-        chosenTimeSlot = uniqueTimeSlot;
-        console.log(chosenTimeSlot);
+        chosenTimeSlot = timeSlotElementThatMatches[0];
 
         generateSeatsTable();
       }
@@ -368,6 +373,11 @@ function changeMonth(){
 }
 
 
+
+
+
+
+
 // opretter biograf med sæder
 function generateSeatsTable(){
   divCalendar.innerHTML = "";
@@ -375,24 +385,25 @@ function generateSeatsTable(){
   //TODO
   //getBookedSeats();
 
-   const theaterNo = chosenTimeSlot.substring(31, 32);
-   let rows;
-   let seatsPrRow;
+  // vi henter det bagerste tal på  uniqueTimeSlot-stringen ud fordi det er bio1 eller bio2
+  const theaterNo = chosenTimeSlot.uniqueTimeSlot.substring(31, 32);
+  let rows;
+  let seatsPrRow;
 
-   if(theaterNo == 1){
+  if(theaterNo == 1){
      rows = 20;
      seatsPrRow = 12;
-   }
-   else {
+  }
+  else {
      rows = 25;
      seatsPrRow = 16;
-   }
+  }
 
   createTheater(rows,seatsPrRow);
 
 }
 
-// TODO
+// TODO HER ER VI I GANG MED AT ARBEJDE
 function getBookedSeats(){
 
   const requestOptions = {
@@ -402,16 +413,19 @@ function getBookedSeats(){
     }
   };
 
-  const url = `http://localhost:8080/seats/id-unique-time-slot/${testMovie.id}`;
+  const url = `http://localhost:8080/seats/id-unique-time-slot/${chosenTimeSlot.id}`;
 
   console.log(url);
 
+  /*
   fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
     .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)//uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
+
+   */
 
 
 }

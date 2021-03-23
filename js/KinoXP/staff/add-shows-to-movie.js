@@ -6,7 +6,7 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-let bookedTimeSlots = [];
+// let bookedTimeSlots = [];
 let bookedTimeSlotElements = [];
 let tempChosenTimeSlots = [];
 let filteredChosenTimeSlots = [];
@@ -54,7 +54,7 @@ function getBookedTimeSlots(){
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
     .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
-    .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
+    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
@@ -322,8 +322,10 @@ function addDatesToCalendar(){
       // year2021month3week1day3row2bio1;
       const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
 
+      let timeSlotElementThatMatches = bookedTimeSlotElements.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
+
       // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
-      if(bookedTimeSlots.includes(uniqueTimeSlot)) {
+      if(timeSlotElementThatMatches.length > 0){//bookedTimeSlots.includes(uniqueTimeSlot)) {
         timeSlotElement.style.backgroundColor = '#FD7B7B';
 
       }
