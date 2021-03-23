@@ -1,4 +1,4 @@
-const movie = JSON.parse(localStorage.getItem('movie'));
+const movie = JSON.parse(localStorage.getItem('selectedMovie'));
 const divMoviePreview = document.getElementById('divMoviePreview');
 
 

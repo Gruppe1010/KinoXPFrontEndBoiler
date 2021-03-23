@@ -109,7 +109,7 @@ function createMoviePreview(movie){
 }
 
 function addMovieToLocalStorage(movie){
-  localStorage.setItem('movie', JSON.stringify(movie));
+  localStorage.setItem('selectedMovie', JSON.stringify(movie));
 
 }
 

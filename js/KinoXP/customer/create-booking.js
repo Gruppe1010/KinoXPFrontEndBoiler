@@ -1,4 +1,4 @@
-const movie = JSON.parse(localStorage.getItem('newlyCreatedMovie'));
+const movie = JSON.parse(localStorage.getItem('selectedMovie'));
 
 let day;// TODO overvej at skære fra
 let month;
@@ -7,8 +7,7 @@ let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
 let bookedTimeSlots = [];
-let tempChosenTimeSlots = [];
-let filteredChosenTimeSlots = [];
+let chosenTimeSlot;
 
 
 
@@ -45,7 +44,7 @@ function getBookedTimeSlots(){
     }
   };
 
-  const url = `http://localhost:8080/unique-time-slots?year=${year}&month=${month}`;
+  const url = `http://localhost:8080/unique-time-slots/id-movie/${movie.id}`;
 
   console.log(url);
 
@@ -56,8 +55,6 @@ function getBookedTimeSlots(){
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
-
-
 
 // sætter alle date-attributter
 function setDateInfo(today) {
@@ -322,44 +319,22 @@ function addDatesToCalendar(){
 
       // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
       if(bookedTimeSlots.includes(uniqueTimeSlot)) {
-        timeSlotElement.style.backgroundColor = '#FD7B7B';
+        timeSlotElement.style.backgroundColor = '#21f683';
+        // vi tilføjer en eventListener på alle optagede tidsceller
+        timeSlotElement.addEventListener('click', chooseTimeSlot);
+
 
       }
-      // vi tilføjer en eventListener på alle de IKKE-optagede tidsceller
-      else{
-        /* funktionen addTimeSlot kaldes når der trykkes på et ikke-rødt felt
-            Den tjekker om feltet allerede er på chosenTimeSlots-arrayet
-              hvis den ikke er: tilføjes den til array'et og farven ændres til blå
-              hvis den er: tages den af array'et og farven ændres til hvid igen
-         */
-        timeSlotElement.addEventListener('click', addOrRemoveTimeSlotToChosenTimeSlotsArray);
-      }
 
-      // vi sørger for at de timeSlots som ligger på chosenTimeSlots bliver blå
-      // ... hvis man skifter måned og kalenderen reloades
-      if(tempChosenTimeSlots.includes(uniqueTimeSlot)) {
-        timeSlotElement.style.backgroundColor = '#7bd8fd';
-      }
+      //TODO her skal vi ændre i funktionen
+      function chooseTimeSlot(){
+
+        chosenTimeSlot = uniqueTimeSlot;
+        console.log(chosenTimeSlot);
+
+        generateSeatsTable();
 
 
-      function addOrRemoveTimeSlotToChosenTimeSlotsArray(){
-        // hvis feltet IKKE er valgt
-        if(!tempChosenTimeSlots.includes(uniqueTimeSlot)){
-          // ændrer vi cellens farve til blå, for at indikere at den er valgt
-          timeSlotElement.style.backgroundColor = '#7bd8fd';
-          // tilføjer til tempChosenTimeSlots-arrayet
-          tempChosenTimeSlots.push(uniqueTimeSlot);
-        }
-        // hvis feltet ER valgt
-        else{
-
-          // ændrer vi cellens farve til hvid, for at indikere at den er IKKE valgt
-          timeSlotElement.style.backgroundColor = '';
-
-          // sletter vi den fra tempChosenTimeSlots-arrayet
-          // vi finder det index-tal hvor uniqueTimeSlot ligger, og sletter det fra listen
-          delete tempChosenTimeSlots[tempChosenTimeSlots.indexOf(uniqueTimeSlot)];
-        }
       }
     }
   }
@@ -437,8 +412,6 @@ function changeMonth(){
     selectedMonth.innerText = "December";
   }
 
-
-
   function previousMonth(){
     today.setMonth(today.getMonth() - 1);
     generateCalendar();
@@ -452,3 +425,149 @@ function changeMonth(){
 
 
 
+
+
+// opretter biograf med sæder
+function generateSeatsTable(){
+  divCalendar.innerHTML = "";
+  //TODO
+  //getBookedSeats();
+  createTheater(5,5);
+
+}
+
+// TODO
+function getBookedSeats(){
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+    }
+  };
+
+  const url = `http://localhost:8080/bookings/id-movie/${movie.id}`;
+
+  console.log(url);
+
+  fetch(url, requestOptions)
+    .then(response => response.json())
+    // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
+    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)//uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
+    .then(addDatesToCalendar)
+    .catch(error => console.log("error: ", error));
+
+
+}
+
+function createTheater(rows, seatsPrRow){
+
+  const btnSubmit = document.createElement('button');
+  btnSubmit.setAttribute('id', 'btnSubmit');
+  btnSubmit.addEventListener('click', bookChosenSeats);
+  btnSubmit.innerText = "Book";
+  btnSubmit.style.backgroundColor = '#c1f3ba';
+
+  const table = document.createElement('TABLE');
+  //table.border = '1';
+
+  const tableBody = document.createElement('TBODY');
+  table.appendChild(tableBody);
+
+
+  /*
+  <table border="1">
+    <tbody>
+
+    <td>
+      <tr>
+        <td colspan="2">hrj</td>
+      </tr>
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+      <tr>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+
+    </td>
+    </tbody>
+  </table>
+  */
+
+  for(let i = 1; i <= rows; i++){
+    const row = document.createElement('TR');
+    row.setAttribute('id', 'row' + i);
+
+    tableBody.appendChild(row);
+
+    for(let j = 1; j <= seatsPrRow; j++){
+      const seat = document.createElement('TD');
+      seat.setAttribute('id', 'row' + i + 'seat' + j);
+      row.appendChild(seat);
+      seat.style.fontSize = '25px';
+      seat.innerHTML = '<i class="fas fa-couch" aria-hidden="true"></i>'
+      seat.style.color = 'green';
+
+    }
+  }
+  divCalendar.appendChild(table);
+  divCalendar.appendChild(document.createElement('br'));
+  divCalendar.appendChild(btnSubmit);
+
+  //TODO
+  function bookChosenSeats(){
+    // hver gang vi fjerner noget fra array'et laver
+    filteredChosenTimeSlots = tempChosenTimeSlots.filter(function (el) {
+      return el != null;
+    });
+
+    const body = filteredChosenTimeSlots.map(createUniqueTimeSlotJSON);
+
+    console.log(JSON.stringify(body));
+
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+      },
+      body: JSON.stringify(body)
+    };
+
+    const url = 'http://localhost:8080/unique-time-slots';
+
+    fetch(url, requestOptions)
+      .then(console.log)
+      //.then(result => result.json())
+      .then(redirect)
+      .catch(error => console.log("error", error));
+
+
+    function redirect(){
+      localStorage.setItem('movie', '');
+      window.location.replace('../staff/create-movie.html');
+    }
+
+
+    function createUniqueTimeSlotJSON(uniqueTimeSlot){
+
+      const uniqueTimeSlotJSON = {
+        'uniqueTimeSlot': uniqueTimeSlot,
+        'idMovie': movie.id
+      };
+
+      return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
+    }
+
+  }
+
+
+
+}

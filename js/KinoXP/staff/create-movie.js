@@ -115,7 +115,7 @@ else
       console.log("succes: " + movie);
       alert("Filmen " + movie.title + " er nu oprettet succesfuldt");
       console.log("agelimit " + movie.ageLimit);
-      localStorage.setItem('movie', JSON.stringify(movie));
+      localStorage.setItem('newlyCreatedMovie', JSON.stringify(movie));
       window.location.replace('../staff/add-shows-to-movie.html');
     }
     else {
