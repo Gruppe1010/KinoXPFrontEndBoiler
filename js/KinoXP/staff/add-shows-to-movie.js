@@ -45,7 +45,7 @@ function getBookedTimeSlots(){
     }
   };
 
-  const url = `http://localhost:8080/uniqueTimeSlots?year=${year}&month=${month}`;
+  const url = `http://localhost:8080/unique-time-slots?year=${year}&month=${month}`;
 
   console.log(url);
 
