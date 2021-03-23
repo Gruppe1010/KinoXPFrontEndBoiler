@@ -529,7 +529,7 @@ function createTheater(rows, seatsPrRow){
       row.appendChild(seat);
       seat.style.fontSize = '15px';
       seat.innerHTML = '<i class="fas fa-couch" aria-hidden="true"></i>'
-      seat.style.color = 'green';
+      seat.style.color = 'grey';
       seat.style.paddingLeft = '3px';
       seat.style.paddingRight = '3px';
 
