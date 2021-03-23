@@ -1,13 +1,13 @@
 const testMovie = JSON.parse(localStorage.getItem('selectedMovie'));
 const title = document.getElementById('title');
-console.log(testMovie);
+
 let day;// TODO overvej at skære fra
 let month;
 let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-// let bookedTimeSlots = [];
+// let bookedTimeSlots = [];  TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
 let bookedTimeSlotElements = [];
 let chosenTimeSlot;
 
@@ -18,6 +18,8 @@ const findNumberOfDaysInMonth = function(month,year) {
 const divCalendar = document.getElementById('divCalendar');
 
 generateCalendar();
+
+// ------------------FØRSTE VIEW: VÆLG SPILLETID
 
 // Laver HELE kalenderen - kalder alle andre funktioner
 function generateCalendar(){
@@ -52,7 +54,7 @@ function getBookedTimeSlots(){
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
     .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
-    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
+    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))  TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
@@ -375,7 +377,7 @@ function changeMonth(){
 
 
 
-
+// ------------------ANDET VIEW: VÆLG SÆDER
 
 
 // opretter biograf med sæder

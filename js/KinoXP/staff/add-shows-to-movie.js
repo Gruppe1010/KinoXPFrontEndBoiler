@@ -6,7 +6,7 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-// let bookedTimeSlots = [];
+// let bookedTimeSlots = []; TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
 let bookedTimeSlotElements = [];
 let tempChosenTimeSlots = [];
 let filteredChosenTimeSlots = [];
@@ -52,9 +52,9 @@ function getBookedTimeSlots(){
 
   fetch(url, requestOptions)
     .then(response => response.json())
-    // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
+    // vi henter UniqueTimeSlot-objekter ud og lægger i bookedTimeSlotElements
     .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
-    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))
+    // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot)) TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
 }
