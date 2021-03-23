@@ -11,8 +11,6 @@ let bookedTimeSlots = [];
 let bookedTimeSlotElements = [];
 let chosenTimeSlot;
 
-
-
 const findNumberOfDaysInMonth = function(month,year) {
   return new Date(year, month, 0).getDate();
 };
@@ -78,12 +76,6 @@ function setDateInfo(today) {
 
 // Opretter alle celler i tabellen
 function createCalendar(){
-  const btnSubmit = document.createElement('button');
-  btnSubmit.setAttribute('id', 'btnSubmit');
-  btnSubmit.addEventListener('click', addChosenTimeSlotsToMovie);
-  btnSubmit.innerText = "Tilføj valgte tider";
-  btnSubmit.style.backgroundColor = '#c1f3ba';
-
   const table = document.createElement('TABLE');
   table.border = '1';
 
@@ -186,53 +178,6 @@ function createCalendar(){
   }
   divCalendar.appendChild(table);
   divCalendar.appendChild(document.createElement('br'));
-  divCalendar.appendChild(btnSubmit);
-
-  function addChosenTimeSlotsToMovie(){
-    // hver gang vi fjerner noget fra array'et laver
-    filteredChosenTimeSlots = tempChosenTimeSlots.filter(function (el) {
-      return el != null;
-    });
-
-    const body = filteredChosenTimeSlots.map(createUniqueTimeSlotJSON);
-
-    console.log(JSON.stringify(body));
-
-
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // betyder == vi sender et json i string-format
-      },
-      body: JSON.stringify(body)
-    };
-
-    const url = 'http://localhost:8080/unique-time-slots';
-
-    fetch(url, requestOptions)
-      .then(console.log)
-      //.then(result => result.json())
-      .then(redirect)
-      .catch(error => console.log("error", error));
-
-
-    function redirect(){
-      localStorage.setItem('movie', '');
-      window.location.replace('../staff/create-movie.html');
-    }
-
-
-    function createUniqueTimeSlotJSON(uniqueTimeSlot){
-
-      const uniqueTimeSlotJSON = {
-        'uniqueTimeSlot': uniqueTimeSlot,
-        'idMovie': testMovie.id
-      };
-
-      return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
-    }
-
-  }
 
 }
 
@@ -325,8 +270,6 @@ function addDatesToCalendar(){
         timeSlotElement.style.backgroundColor = '#21f683';
         // vi tilføjer en eventListener på alle optagede tidsceller
         timeSlotElement.addEventListener('click', chooseTimeSlot);
-
-
       }
 
       //TODO her skal vi ændre i funktionen
@@ -336,8 +279,6 @@ function addDatesToCalendar(){
         console.log(chosenTimeSlot);
 
         generateSeatsTable();
-
-
       }
     }
   }
@@ -427,9 +368,6 @@ function changeMonth(){
 }
 
 
-
-
-
 // opretter biograf med sæder
 function generateSeatsTable(){
   divCalendar.innerHTML = "";
@@ -464,7 +402,7 @@ function getBookedSeats(){
     }
   };
 
-  const url = `http://localhost:8080/bookings/id-movie/${testMovie.id}`;
+  const url = `http://localhost:8080/seats/id-unique-time-slot/${testMovie.id}`;
 
   console.log(url);
 
