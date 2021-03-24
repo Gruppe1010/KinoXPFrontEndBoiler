@@ -18,7 +18,7 @@ console.log(chosenTimeSlot);
 
 // vi opretter elementer
 // movieTitle, moviePoster, antal sæder, hvilke sæder, tidspunkt, biografsal
-const h3MovieTitle = document.createElement('h2');
+const h2MovieTitle = document.createElement('h2');
 const moviePoster = document.createElement('img');
 const h4AmountOfSeats = document.createElement('h4');
 const h4BookedSeats = document.createElement('h4');
@@ -26,7 +26,7 @@ const h4TimeAndDate = document.createElement('h4');
 const h4Theater = document.createElement('h4');
 
 // vi tilføjer elementer til DOM-træ
-bookingConfirmation.appendChild(h3MovieTitle);
+bookingConfirmation.appendChild(h2MovieTitle);
 bookingConfirmation.appendChild(moviePoster);
 bookingConfirmation.appendChild(h4TimeAndDate);
 bookingConfirmation.appendChild(h4AmountOfSeats);
@@ -34,9 +34,9 @@ bookingConfirmation.appendChild(h4BookedSeats);
 bookingConfirmation.appendChild(h4Theater);
 
 // vi udarbejder elementer
-h3MovieTitle.innerText = movie.title;
-h3MovieTitle.style.fontWeight = 'bold';
-h3MovieTitle.style.fontStyle = 'italic';
+h2MovieTitle.innerText = movie.title;
+h2MovieTitle.style.fontWeight = 'bold';
+h2MovieTitle.style.fontStyle = 'italic';
 
 moviePoster.src = movie.base64;
 moviePoster.style.height = '300px';
