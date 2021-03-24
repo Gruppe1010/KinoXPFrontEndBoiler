@@ -6,8 +6,7 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-// let bookedTimeSlots = []; TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
-let bookedTimeSlotElements = [];
+let bookedTimeSlots = [];
 let tempChosenTimeSlots = [];
 let filteredChosenTimeSlots = [];
 
@@ -53,7 +52,7 @@ function getBookedTimeSlots(){
   fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter UniqueTimeSlot-objekter ud og lægger i bookedTimeSlotElements
-    .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
+    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)
     // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot)) TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
@@ -322,7 +321,7 @@ function addDatesToCalendar(){
       // year2021month3week1day3row2bio1;
       const uniqueTimeSlot = 'year' + year + 'month' + month + timeSlotId;
 
-      let timeSlotElementThatMatches = bookedTimeSlotElements.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
+      let timeSlotElementThatMatches = bookedTimeSlots.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
 
       // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
       if(timeSlotElementThatMatches.length > 0){//bookedTimeSlots.includes(uniqueTimeSlot)) {

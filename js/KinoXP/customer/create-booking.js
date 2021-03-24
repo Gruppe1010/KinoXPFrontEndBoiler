@@ -7,9 +7,13 @@ let year;
 let firstDayOfMonth;
 let numberOfDaysInMonth;
 let today = new Date();
-// let bookedTimeSlots = [];  TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
-let bookedTimeSlotElements = [];
+let bookedTimeSlots = [];
 let chosenTimeSlot;
+
+let bookedSeats = [];
+let chosenSeats = [];
+let filteredChosenSeats = [];
+let amountOfChosenSeats = 0;
 
 const findNumberOfDaysInMonth = function(month,year) {
   return new Date(year, month, 0).getDate();
@@ -53,7 +57,7 @@ function getBookedTimeSlots(){
   fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
-    .then(uniqueTimeSlots => bookedTimeSlotElements = uniqueTimeSlots)
+    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)
     // .then(test => bookedTimeSlots = bookedTimeSlotElements.map(x => x.uniqueTimeSlot))  TODO overvej at slette - vi henter ikke kun strings ud mere, men hele elementer
     .then(addDatesToCalendar)
     .catch(error => console.log("error: ", error));
@@ -271,7 +275,7 @@ function addDatesToCalendar(){
       // bookedTimeSlotElements == liste med alle vores UniqueTimeSlot-objekter på tilhørende movie
       // filter(x => x.uniqueTimeSlot == uniqueTimeSlot) == vi sorterer alle fra som IKKE er lige uniqueTimeSlot-stringen
       // dette bør efterlade os med én, hvis den er der
-      let timeSlotElementThatMatches = bookedTimeSlotElements.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
+      let timeSlotElementThatMatches = bookedTimeSlots.filter(x => x.uniqueTimeSlot == uniqueTimeSlot);
 
       // Her sætter vi de bookede tidspunker til rød og tilføjer en eventListener på alle andre felter
       if(timeSlotElementThatMatches.length > 0) {
@@ -384,28 +388,14 @@ function changeMonth(){
 function generateSeatsTable(){
   divCalendar.innerHTML = "";
   title.innerText = "Vælg sæder";
-  //TODO
-  //getBookedSeats();
 
-  // vi henter det bagerste tal på  uniqueTimeSlot-stringen ud fordi det er bio1 eller bio2
-  const theaterNo = chosenTimeSlot.uniqueTimeSlot.substring(31, 32);
-  let rows;
-  let seatsPrRow;
+  // den fetcher alle de bookede sæder og kalder derefter createTheater-funktionen, som opretter biograf-viewet
+  getBookedSeats();
 
-  if(theaterNo == 1){
-     rows = 20;
-     seatsPrRow = 12;
-  }
-  else {
-     rows = 25;
-     seatsPrRow = 16;
-  }
 
-  createTheater(rows,seatsPrRow);
 
 }
 
-// TODO HER ER VI I GANG MED AT ARBEJDE
 function getBookedSeats(){
 
   const requestOptions = {
@@ -417,22 +407,31 @@ function getBookedSeats(){
 
   const url = `http://localhost:8080/seats/id-unique-time-slot/${chosenTimeSlot.id}`;
 
-  console.log(url);
-
-  /*
   fetch(url, requestOptions)
     .then(response => response.json())
     // vi henter stringværdierne på attributten uniqueTimeSlot ud og tilføjer dem til bookedTimeslots
-    .then(uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots)//uniqueTimeSlots => bookedTimeSlots = uniqueTimeSlots.map(x => x.uniqueTimeSlot))
-    .then(addDatesToCalendar)
+    .then(seats => bookedSeats = seats)
+    .then(createTheater)
     .catch(error => console.log("error: ", error));
-
-   */
-
-
 }
 
-function createTheater(rows, seatsPrRow){
+function createTheater(){
+  // vi henter det bagerste tal på  uniqueTimeSlot-stringen ud fordi det er bio1 eller bio2
+  const theaterNo = chosenTimeSlot.uniqueTimeSlot.substring(31, 32);
+  let rows;
+  let seatsPrRow;
+
+  if(theaterNo == 1){
+    rows = 20;
+    seatsPrRow = 12;
+  }
+  else {
+    rows = 25;
+    seatsPrRow = 16;
+  }
+
+  const h4AmountOfChosenSeats = document.createElement('h4');
+  h4AmountOfChosenSeats.innerText = 'Du har valgt 0 sæder';
 
   const btnSubmit = document.createElement('button');
   btnSubmit.setAttribute('id', 'btnSubmit');
@@ -454,63 +453,147 @@ function createTheater(rows, seatsPrRow){
 
     for(let j = 1; j <= seatsPrRow; j++){
       const seat = document.createElement('TD');
-      seat.setAttribute('id', 'row' + i + 'seat' + j);
+
+      const uniqueSeatId = 'row' + i + 'seat' + j;
+
+      seat.setAttribute('id', uniqueSeatId);
       row.appendChild(seat);
       seat.style.fontSize = '15px';
       seat.innerHTML = '<i class="fas fa-couch" aria-hidden="true"></i>'
-      seat.style.color = 'grey';
       seat.style.paddingLeft = '3px';
       seat.style.paddingRight = '3px';
 
+      let seatThatMatches = bookedSeats.filter(seat => seat.rowAndSeat == uniqueSeatId);
+
+      // Her sætter vi de bookede sæder til rød og tilføjer en eventListener på alle andre felter
+      if(seatThatMatches.length > 0){
+        seat.style.color = 'red';
+
+
+      }
+      // vi tilføjer en eventListener på alle de IKKE-optagede sæder
+      else{
+        /* funktionen addSeat kaldes når der trykkes på et ikke-rødt felt
+            Den tjekker om feltet allerede er på chosenTimeSlots-arrayet
+              hvis den ikke er: tilføjes den til array'et og farven ændres til blå
+              hvis den er: tages den af array'et og farven ændres til hvid igen
+         */
+        seat.style.color = 'grey';
+
+        seat.addEventListener('click', addOrRemoveChosenSeatToChosenSeatsArray);
+      }
+
+      // denne funktion kaldes hver gang man trykker på et ikke-rødt sæde
+      function addOrRemoveChosenSeatToChosenSeatsArray(){
+        // hvis feltet IKKE allerede er valgt og lagt på chosenSeats-arrayet
+        if(!chosenSeats.includes(uniqueSeatId)){
+          // ændrer vi sædets farve til grøn, for at indikere at den er valgt
+          seat.style.color = 'green';
+          // tilføjer til chosenSeats-arrayet
+          chosenSeats.push(uniqueSeatId);
+
+          amountOfChosenSeats++;
+        }
+        // hvis feltet ER valgt og dermed lagt på chosenSeats-arrayet
+        else{
+          // ændrer vi cellens farve til grey, for at indikere at den er IKKE valgt
+          seat.style.color = 'grey';
+
+          // sletter vi den fra chosenSeats-arrayet
+          // vi finder det index-tal hvor uniqueSeatId ligger, og sletter det fra listen
+          delete chosenSeats[chosenSeats.indexOf(uniqueSeatId)];
+
+          amountOfChosenSeats--;
+          console.log(amountOfChosenSeats);
+        }
+        h4AmountOfChosenSeats.innerText = 'Du har valgt ' + amountOfChosenSeats + ' sæder';
+      }
     }
   }
+  divCalendar.appendChild(h4AmountOfChosenSeats);
+  divCalendar.appendChild(document.createElement('br'));
   divCalendar.appendChild(table);
   divCalendar.appendChild(document.createElement('br'));
   divCalendar.appendChild(btnSubmit);
 
   //TODO
   function bookChosenSeats(){
-    // hver gang vi fjerner noget fra array'et laver
-    filteredChosenTimeSlots = tempChosenTimeSlots.filter(function (el) {
-      return el != null;
-    });
-
-    const body = filteredChosenTimeSlots.map(createUniqueTimeSlotJSON);
-
-    console.log(JSON.stringify(body));
 
 
-    const requestOptions = {
+
+    // FØRSTE FETCH - laver ny booking
+    const requestOptions1 = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // betyder == vi sender et json i string-format
       },
-      body: JSON.stringify(body)
+      //mode: 'no-cors',
+      body: localStorage.getItem('loggedInUser')
     };
 
-    const url = 'http://localhost:8080/unique-time-slots';
+    const url1 = 'http://localhost:8080/bookings';
 
-    fetch(url, requestOptions)
+    let newBooking;
+
+    // vi laver en ny booking i db, får den sendt tilbage hertil og gemmer den i newBooking-variablen
+    fetch(url1, requestOptions1)
+      .then(result => result.json())
+      .then(bookingResult => newBooking = bookingResult)
       .then(console.log)
-      //.then(result => result.json())
-      .then(redirect)
+      .then(fetchPostSeats)
       .catch(error => console.log("error", error));
 
 
-    function redirect(){
-      localStorage.setItem('movie', '');
-      window.location.replace('../staff/create-movie.html');
-    }
 
+    // ANDEN FETCH - laver nye sæder
+    function fetchPostSeats(){
 
-    function createUniqueTimeSlotJSON(uniqueTimeSlot){
+      // hver gang vi fjerner noget fra array'et laver
+      filteredChosenSeats = chosenSeats.filter(function (el) {
+        return el != null;
+      });
 
-      const uniqueTimeSlotJSON = {
-        'uniqueTimeSlot': uniqueTimeSlot,
-        'idMovie': testMovie.id
+      const body = filteredChosenSeats.map(createSeatJSON);
+
+      function createSeatJSON(seat){
+
+        const seatJSON = {
+          'rowAndSeat': seat,
+          'booking': newBooking,
+          'uniqueTimeSlot' : chosenTimeSlot
+        };
+
+        return seatJSON;//JSON.stringify(uniqueTimeSlotJSON);
+      }
+
+      const requestOptions2 = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+        },
+        body: JSON.stringify(body)
       };
 
-      return uniqueTimeSlotJSON;//JSON.stringify(uniqueTimeSlotJSON);
+      const url2 = 'http://localhost:8080/seats';
+
+      fetch(url2, requestOptions2)
+        .then(result => result.json())
+        .then(redirect)
+        .catch(error => console.log("error", error));
+
+
+      function redirect(newlyBookedSeats){
+        // Booking-obj
+        localStorage.setItem('newBooking', newBooking);
+        // array af Seat-obj
+        localStorage.setItem('newlyBookedSeats', newlyBookedSeats);
+
+        console.log(newBooking);
+        console.log(newlyBookedSeats);
+
+        // window.location.replace('../customer/booking-confirmation.html');
+      }
+
     }
 
   }
