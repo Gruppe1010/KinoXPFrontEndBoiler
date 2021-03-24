@@ -65,10 +65,10 @@ function candy(){
         Rediger vare
       </button>
     </div>
-
      */
+
     // opretter forskellige elementer
-  // TODO lav den der fancy rækkemåde at vise sliket på - ligesom movies
+    // TODO lav den der fancy rækkemåde at vise sliket på - ligesom movies
     const outerDivCandy = document.createElement('div');
     const divCandy = document.createElement('div')
     const imgCandy = document.createElement('img');
@@ -200,10 +200,10 @@ function createCandyFunction(){
 
   }
 
-  setLabelElement(labelCandyPoster, 'candyPoster', 'Billede:  ');
-  setLabelElement(labelName, 'name', 'Navn: ');
-  setLabelElement(labelPrice, 'price', 'Pris pr. stk.:  ');
-  setLabelElement(labelStock, 'stock', 'Antal på lager: ');
+  setLabelElement(labelCandyPoster, 'candyPoster', 'Billede:');
+  setLabelElement(labelName, 'name', 'Navn:\u00A0');
+  setLabelElement(labelPrice, 'price', 'Pris pr. stk.:\u00A0');
+  setLabelElement(labelStock, 'stock', 'Antal på lager:\u00A0');
 
   function setLabelElement(element, value, innerText){
     element.setAttribute('for', value);

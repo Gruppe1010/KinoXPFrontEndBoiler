@@ -79,10 +79,6 @@ function createMoviePreview(movie){
   let divMovie = document.createElement('div');
   divMovie.classList.add('col-sm-2');
   divMovie.align = "center";
-  divMovie.style.width='80%';
-  divMovie.style.maxHeight= '295px';
-  divMovie.style.maxWidth= '200px';
-
 
   // vi laver nu img som skal være i divMovie
   let imgMovie = document.createElement('img');

@@ -87,6 +87,7 @@ function createCalendar(){
 
   const table = document.createElement('TABLE');
   table.border = '1';
+  table.style.textAlign = 'center';
 
   const tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
@@ -107,6 +108,7 @@ function createCalendar(){
     dayElement.setAttribute('id', idDay);
     dayElement.innerText = innerTextDay;
     dayElement.style.backgroundColor = '#a0a09d';
+    dayElement.style.textAlign = 'center';
 
     return dayElement;
   }
