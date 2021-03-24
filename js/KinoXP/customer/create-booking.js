@@ -256,10 +256,10 @@ function addDatesToCalendar(){
     const tdBio2TimeSlot2 = document.getElementById(timeSlot4Id);
 
     // vi sætter tidspunktet
-    tdBio1TimeSlot1.innerText = "16:00-19:00";
-    tdBio2TimeSlot1.innerText = "16:00-19:00";
-    tdBio1TimeSlot2.innerText = "20:00-23:00";
-    tdBio2TimeSlot2.innerText = "20:00-23:00";
+    tdBio1TimeSlot1.innerText = "16:00";
+    tdBio2TimeSlot1.innerText = "16:00";
+    tdBio1TimeSlot2.innerText = "20:00";
+    tdBio2TimeSlot2.innerText = "20:00";
 
     setBookedTimeSlotsToRedAndBlue(timeSlot1Id, tdBio1TimeSlot1);
     setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio2TimeSlot1);
@@ -584,14 +584,12 @@ function createTheater(){
 
       function redirect(newlyBookedSeats){
         // Booking-obj
-        localStorage.setItem('newBooking', newBooking);
+        localStorage.setItem('newBooking', JSON.stringify(newBooking));
         // array af Seat-obj
-        localStorage.setItem('newlyBookedSeats', newlyBookedSeats);
+        localStorage.setItem('newlyBookedSeats', JSON.stringify(newlyBookedSeats));
+        localStorage.setItem(('chosenTimeSlot'), JSON.stringify(chosenTimeSlot));
 
-        console.log(newBooking);
-        console.log(newlyBookedSeats);
-
-        // window.location.replace('../customer/booking-confirmation.html');
+        window.location.replace('../customer/booking-confirmation.html');
       }
 
     }

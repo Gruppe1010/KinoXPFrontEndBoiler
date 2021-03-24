@@ -7,6 +7,7 @@ const divMoviePreview = document.getElementById('divMoviePreview');
 // vi laver nu img som skal være i divMovie
 let imgMovie = document.createElement('img');
 imgMovie.src = selectedMovie.base64;
+imgMovie.style.height = '300px';
 
 let pTitle = document.createElement('p');
 pTitle.innerText=selectedMovie.title;
