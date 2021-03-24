@@ -8,7 +8,6 @@ function startPage(){
 // opretter elementer
   const viewAllCandy = document.createElement('a');
   const createCandy = document.createElement('a');
-  const br = document.createElement('br');
 
 // tilføjer elementer
   posContent.appendChild(viewAllCandy);
@@ -42,7 +41,6 @@ function candy(){
 // localStorage.setItem('cart', );
 
 
-
   fetch(url)
     .then(response => response.json())
     .then(candyList => candyList.forEach(showCandy))
@@ -72,38 +70,40 @@ function candy(){
     // opretter forskellige elementer
   // TODO lav den der fancy rækkemåde at vise sliket på - ligesom movies
     const outerDivCandy = document.createElement('div');
-
-    const divCandy = document.createElement('div');
+    const divCandy = document.createElement('div')
     const imgCandy = document.createElement('img');
     const pNameCandy = document.createElement('p');
     const pPriceCandy = document.createElement('p');
     const pStockCandy = document.createElement('p');
-
     const buttonCandy = document.createElement('button');
 
     // tilføjer elementer til DOM-træet
     posContent.appendChild(outerDivCandy);
     outerDivCandy.appendChild(divCandy);
-
     divCandy.appendChild(imgCandy);
     divCandy.appendChild(pNameCandy);
     divCandy.appendChild(pPriceCandy);
     divCandy.appendChild(pStockCandy);
+    divCandy.appendChild(buttonCandy);
 
     // udarbejder elementer
-    divCandy.classList.add('col-sm-3');
+    posContent.classList.add('container-fluid', 'bg-3');
+    outerDivCandy.classList.add('row');
+    divCandy.classList.add('col-sm-2');
+    divCandy.align = 'center';
     imgCandy.setAttribute('src', candy.base64);
     imgCandy.classList.add('img-responsive');
-    imgCandy.style.width = '80%';
+    imgCandy.style.width='80%';
+    imgCandy.style.maxHeight= '295px';
+    imgCandy.style.maxWidth= '200px';
     pNameCandy.innerText = candy.name;
+    pNameCandy.style.fontWeight = 'bold';
     pPriceCandy.innerText = candy.price + " DKK";
     pStockCandy.innerText = candy.stock + " stk. tilbage";
-
     buttonCandy.innerText = "Rediger " + candy.name;
 
     imgCandy.addEventListener('click', addToCart);
     buttonCandy.addEventListener('click', goToEditCandy);
-
 
     // hvis der ikke er mere slik tilbage, bliver billedet gråt
     if(candy.stock === 0){
@@ -112,6 +112,7 @@ function candy(){
 
     outerDivCandy.appendChild(divCandy);
     divCandy.appendChild(buttonCandy);
+
     function addToCart(candy){
 
       alert("tilføj");
@@ -121,21 +122,17 @@ function candy(){
       }
       // ellers add to cart
 
-
-
-
     }
 
     function goToEditCandy(){
       localStorage.setItem('currentCandy', JSON.stringify(candy));
       window.location.replace('../staff/edit-candy.html');
     }
-
-
   }
   // TODO
 
 }
+
 //create-candy.HTML
 function createCandyFunction(){
   posContent.innerHTML = "";
@@ -160,7 +157,7 @@ function createCandyFunction(){
    */
 
   // opretter elementer
-  const div = document.createElement('div');
+  const divCreateCandy = document.createElement('div');
   const inputCandyPoster = document.createElement('input');
   const inputName = document.createElement('input');
   const inputPrice = document.createElement('input');
@@ -174,24 +171,21 @@ function createCandyFunction(){
   const button  = document.createElement('button');
 
   // tilføjer dem til DOM-træ
-  posContent.appendChild(div);
+  posContent.appendChild(divCreateCandy);
   addLabelAndInputToDom(labelCandyPoster, inputCandyPoster);
   addLabelAndInputToDom(labelName, inputName);
   addLabelAndInputToDom(labelPrice, inputPrice);
   addLabelAndInputToDom(labelStock, inputStock);
 
   function addLabelAndInputToDom(label, input){
-    div.appendChild(label);
-    div.appendChild(input);
-    div.appendChild(document.createElement('br'));
-    div.appendChild(document.createElement('br'));
+    divCreateCandy.appendChild(label);
+    divCreateCandy.appendChild(input);
+    divCreateCandy.appendChild(document.createElement('br'));
+    divCreateCandy.appendChild(document.createElement('br'));
   }
-  div.appendChild(button);
+  divCreateCandy.appendChild(button);
 
   // udarbejder elemementer
-  posContent.classList.add('container-fluid', 'bg-3', 'text-center', 'col-sm-2');
-  div.align = 'center';
-  div.classList.add('row');
   setInputElement(inputCandyPoster, "file", "candyPoster");
   setInputElement(inputName, "text", "name");
   setInputElement(inputPrice, "number", "price");
@@ -206,9 +200,9 @@ function createCandyFunction(){
 
   }
 
-  setLabelElement(labelCandyPoster, 'candyPoster', 'Billede: ');
+  setLabelElement(labelCandyPoster, 'candyPoster', 'Billede:  ');
   setLabelElement(labelName, 'name', 'Navn: ');
-  setLabelElement(labelPrice, 'price', 'Pris pr. stk.: ');
+  setLabelElement(labelPrice, 'price', 'Pris pr. stk.:  ');
   setLabelElement(labelStock, 'stock', 'Antal på lager: ');
 
   function setLabelElement(element, value, innerText){
