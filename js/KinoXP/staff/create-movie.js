@@ -34,9 +34,7 @@ else
   function createMovie() {
 
     const moviePoster = document.getElementById('moviePoster').files[0];
-
     const title = document.getElementById('title').value;
-
     const length = document.getElementById('length').value;
     const yearOfRelease = document.getElementById('yearOfRelease').value;
     const ageLimit = document.querySelectorAll("input[name=ageLimit]:checked")[0].value;
