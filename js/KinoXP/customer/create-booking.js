@@ -99,11 +99,13 @@ function createCalendar(){
   const saturday = createDayElements('saturday', 'Lørdag');
   const sunday = createDayElements('sunday', 'Søndag');
 
+
   function createDayElements(idDay, innerTextDay){
     const dayElement = document.createElement('TH');
     dayElement.setAttribute('id', idDay);
     dayElement.innerText = innerTextDay;
     dayElement.style.backgroundColor = '#a0a09d';
+    dayElement.style.width = "150px";
 
     return dayElement;
   }
@@ -239,6 +241,9 @@ function addDatesToCalendar(){
     // vi tilføjer grå baggrundsfarve på bio-felter
     tdBio1.style.backgroundColor = '#dddada';
     tdBio2.style.backgroundColor = '#dddada';
+    tdBio1.style.width = "75px";
+    tdBio2.style.width = "75px";
+
   }
 
   // tilføjer tidspunkterne 16-19 og 20-23 i de 4 tidspunktsceller i ÉN dagsfirkant
@@ -260,6 +265,12 @@ function addDatesToCalendar(){
     tdBio2TimeSlot1.innerText = "16:00";
     tdBio1TimeSlot2.innerText = "20:00";
     tdBio2TimeSlot2.innerText = "20:00";
+
+    tdBio1TimeSlot1.style.height = "35px";
+    tdBio2TimeSlot1.style.height = "35px";
+    tdBio1TimeSlot2.style.height = "35px";
+    tdBio2TimeSlot2.style.height = "35px";
+
 
     setBookedTimeSlotsToRedAndBlue(timeSlot1Id, tdBio1TimeSlot1);
     setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio2TimeSlot1);

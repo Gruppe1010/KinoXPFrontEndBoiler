@@ -253,6 +253,7 @@ function addDatesToCalendar(){
 
     td.innerText = innerTextDate;
 
+
     addBioNumber(1, dayNumber);
     addBioTimeSlots(1, dayNumber);
   }
@@ -271,6 +272,8 @@ function addDatesToCalendar(){
         const td = document.getElementById('week' + i + 'day' + dayNumber + 'date');
 
         td.innerText = innerTextDate;
+
+
 
         addBioNumber(i, dayNumber);
         addBioTimeSlots(i, dayNumber);
@@ -310,6 +313,14 @@ function addDatesToCalendar(){
     tdBio2TimeSlot1.innerText = "16:00-19:00";
     tdBio1TimeSlot2.innerText = "20:00-23:00";
     tdBio2TimeSlot2.innerText = "20:00-23:00";
+
+    tdBio1TimeSlot1.style.height = "35px";
+    tdBio2TimeSlot1.style.height = "35px";
+    tdBio1TimeSlot2.style.height = "35px";
+    tdBio2TimeSlot2.style.height = "35px";
+
+
+
 
     setBookedTimeSlotsToRedAndBlue(timeSlot1Id, tdBio1TimeSlot1);
     setBookedTimeSlotsToRedAndBlue(timeSlot2Id, tdBio2TimeSlot1);
