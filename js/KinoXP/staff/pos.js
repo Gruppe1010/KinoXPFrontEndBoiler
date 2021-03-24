@@ -6,18 +6,21 @@ startPage();
 function startPage(){
 
 // opretter elementer
-  const viewAllCandy = document.createElement('h1');
-  const createCandy = document.createElement('h1');
+  const viewAllCandy = document.createElement('a');
+  const createCandy = document.createElement('a');
   const br = document.createElement('br');
 
 // tilføjer elementer
   posContent.appendChild(viewAllCandy);
-  posContent.appendChild(br);
+  posContent.appendChild(document.createElement('br'));
   posContent.appendChild(createCandy);
 
 // udarbejder elementer
   viewAllCandy.innerText = "Se slikudvalg";
+  viewAllCandy.style.fontSize = '20px';
   createCandy.innerText = "Opret nyt slik";
+  createCandy.style.fontSize = '20px';
+
 
   viewAllCandy.addEventListener('click', candy);
   createCandy.addEventListener('click', createCandyFunction);
@@ -109,25 +112,28 @@ function candy(){
 
     outerDivCandy.appendChild(divCandy);
     divCandy.appendChild(buttonCandy);
+    function addToCart(candy){
+
+      alert("tilføj");
+
+      if(candy.stock === 0){
+        alert("Der er ikke flere på lager")
+      }
+      // ellers add to cart
+
+
+
+
+    }
+
+    function goToEditCandy(){
+      localStorage.setItem('currentCandy', JSON.stringify(candy));
+      window.location.replace('../staff/edit-candy.html');
+    }
+
+
   }
   // TODO
-  function addToCart(candy){
-
-    alert("tilføj");
-
-    if(candy.stock === 0){
-      alert("Der er ikke flere på lager")
-    }
-    // ellers add to cart
-
-
-
-
-  }
-  function goToEditCandy(candy){
-    localStorage.setItem('currentCandy', JSON.stringify(candy));
-    window.location.replace('../staff/edit-candy.html');
-  }
 
 }
 //create-candy.HTML
@@ -298,6 +304,8 @@ function createCandyFunction(){
 
 
 }
+
+
 
 
 
