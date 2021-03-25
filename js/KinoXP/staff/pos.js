@@ -89,7 +89,7 @@ function candy(){
     // udarbejder elementer
     posContent.classList.add('container-fluid', 'bg-3');
     outerDivCandy.classList.add('row');
-    divCandy.classList.add('col-sm-2');
+    outerDivCandy.classList.add('col-sm-2');
     divCandy.align = 'center';
     imgCandy.setAttribute('src', candy.base64);
     imgCandy.classList.add('img-responsive');
