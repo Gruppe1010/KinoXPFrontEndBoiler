@@ -85,17 +85,22 @@ function candy(){
     divCandy.appendChild(pPriceCandy);
     divCandy.appendChild(pStockCandy);
     divCandy.appendChild(buttonCandy);
+    outerDivCandy.appendChild(document.createElement('br'));
+    outerDivCandy.appendChild(document.createElement('br'));
 
     // udarbejder elementer
-    posContent.classList.add('container-fluid', 'bg-3');
+    posContent.classList.add('container-fluid','bg-2');
     outerDivCandy.classList.add('row');
     outerDivCandy.classList.add('col-sm-2');
+    outerDivCandy.style.margin = 'auto';
     divCandy.align = 'center';
     imgCandy.setAttribute('src', candy.base64);
     imgCandy.classList.add('img-responsive');
-    imgCandy.style.width='80%';
-    imgCandy.style.maxHeight= '295px';
-    imgCandy.style.maxWidth= '200px';
+    imgCandy.style.height = "300px"
+
+    //imgCandy.style.width='80%';
+    //imgCandy.style.maxHeight= '295px';
+    //imgCandy.style.maxWidth= '200px';
     pNameCandy.innerText = candy.name;
     pNameCandy.style.fontWeight = 'bold';
     pPriceCandy.innerText = candy.price + " DKK";
