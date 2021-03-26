@@ -89,7 +89,7 @@ function candy(){
     outerDivCandy.appendChild(document.createElement('br'));
 
     // udarbejder elementer
-    posContent.classList.add('container-fluid','bg-2');
+    posContent.classList.add('container-fluid');
     outerDivCandy.classList.add('row');
     outerDivCandy.classList.add('col-sm-2');
     outerDivCandy.style.margin = 'auto';
@@ -97,10 +97,6 @@ function candy(){
     imgCandy.setAttribute('src', candy.base64);
     imgCandy.classList.add('img-responsive');
     imgCandy.style.height = "300px"
-
-    //imgCandy.style.width='80%';
-    //imgCandy.style.maxHeight= '295px';
-    //imgCandy.style.maxWidth= '200px';
     pNameCandy.innerText = candy.name;
     pNameCandy.style.fontWeight = 'bold';
     pPriceCandy.innerText = candy.price + " DKK";
