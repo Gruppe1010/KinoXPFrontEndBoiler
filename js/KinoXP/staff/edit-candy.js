@@ -10,6 +10,7 @@ const inputStock = document.createElement('input');
 const imgCandy = document.createElement('img');
 const h3CandyName = document.createElement('h3');
 const btnSubmit = document.createElement('button');
+const btnDelete = document.createElement('button');
 
 //tilføjer til DOM
 posContent.appendChild(h3CandyName);
@@ -28,6 +29,9 @@ posContent.appendChild(inputStock);
 posContent.appendChild(document.createElement('br'));
 posContent.appendChild(document.createElement('br'));
 posContent.appendChild(btnSubmit);
+posContent.appendChild(document.createElement('br'));
+posContent.appendChild(document.createElement('br'));
+posContent.appendChild(btnDelete);
 
 //udarbejder elementer
 h3CandyName.innerText = candy.name;
@@ -45,9 +49,40 @@ lblPrice.innerText = "Ændr pris: ";
 lblStock.innerText = "Ændr antal på lager: ";
 
 btnSubmit.innerText = "Gem ændringer";
-
 btnSubmit.addEventListener('click', updateCandy);
 
+btnDelete.innerText = "Fjern slik fra sortiment";
+btnDelete.style.backgroundColor = '#ff7979';
+btnDelete.addEventListener('click', deleteCandy);
+
+function deleteCandy(){
+
+  const candyJSON = {
+    'id': candy.id
+  }
+
+  console.log(candyJSON);
+
+  const body = JSON.stringify(candyJSON);
+
+  //Vi laver nogle specifikationer til vores request
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json', // betyder == vi sender et json i string-format
+    },
+    body: body
+  };
+  const url = 'http://localhost:8080/candy';
+
+  fetch(url, requestOptions)
+    .catch(error => console.log("error: ", error));
+
+
+  alert("Du har nu slettet :" + candy.name);
+  window.location.replace('../staff/pos.html')
+
+}
 function updateCandy(){
 
   let inputPriceValue =  inputPrice.value;
